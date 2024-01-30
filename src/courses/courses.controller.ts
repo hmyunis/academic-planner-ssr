@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Render, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Render,
+  Res,
+} from '@nestjs/common';
 import * as fs from 'fs';
 
 @Controller('courses')
@@ -16,15 +24,13 @@ export class CoursesController {
   @Post('/:username/new')
   addNewCourse(@Body() body, @Param('username') username, @Res() res) {
     const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
-      if (!courseExists(body.courseCode, username)) {
-        readUser.courses.push(body);
-        console.log('Course has been appended successfully.');
-        overwriteFile(readUser, username);
-      } else {
-        console.log(
-          `Course ${body.courseCode} already exists.`,
-        );
-      }
+    if (!courseExists(body.courseCode, username)) {
+      readUser.courses.push(body);
+      console.log('Course has been appended successfully.');
+      overwriteFile(readUser, username);
+    } else {
+      console.log(`Course ${body.courseCode} already exists.`);
+    }
     return res.redirect(`/courses/${username}`);
   }
 
@@ -38,7 +44,6 @@ export class CoursesController {
       numberOfCourses: user.courses.length,
     };
   }
-
 }
 
 function getUserbyUsername(username: string) {

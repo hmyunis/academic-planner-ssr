@@ -22,7 +22,7 @@ export class UserController {
       currentTime: new Date().toLocaleString(),
       username,
       pendingTaskCount: user.tasks.length,
-      arrayOfTasks: user.tasks,
+      arrayOfTasks: getFormattedDatesArray(user.tasks, "dueTime", username),
     };
   }
 
@@ -53,7 +53,7 @@ export class UserController {
       currentTime: new Date().toLocaleString(),
       username,
       pendingTaskCount: user.tasks.length,
-      arrayOfTasks: user.tasks,
+      arrayOfTasks: getFormattedDatesArray(user.tasks, "dueTime", username),
     };
   }
 
@@ -72,7 +72,7 @@ export class UserController {
     res.render('notificationsPage', {
       currentTime: new Date().toLocaleString(),
       username,
-      arrayOfNotifications: user.notifications,
+      arrayOfNotifications: getFormattedDatesArray(user.notifications, "timestamp", username),
       numberOfNotifications: user.notifications.length,
     });
   }
@@ -146,4 +146,72 @@ function courseExists(courseCode: string, username: string) {
   } catch (error) {
     console.error();
   }
+}
+
+function convertTimeFormat(dateString, is24HourFormat) {
+  let dateObj = new Date(dateString);
+
+  if (isNaN(dateObj.getTime())) {
+    console.log('Invalid date format');
+    return null;
+  }
+
+  let formattedDate = dateObj.toLocaleString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: !is24HourFormat,
+  });
+
+  return formattedDate;
+}
+
+function is12HourFormat(dateString) {
+  let dateObj = new Date(dateString);
+
+  if (isNaN(dateObj.getTime())) {
+    console.error('Invalid date format');
+    return null;
+  }
+
+  let formattedTime = dateObj
+    .toLocaleString('en-US', { hour12: true })
+    .toUpperCase();
+  return formattedTime.includes('AM') || formattedTime.includes('PM');
+}
+
+function getAppropriateTimeString(dateString: string, username: string) {
+  try {
+    const userObj = getUserbyUsername(username);
+    // true for 12-hour format, false for 24-hour format
+    let userTimeSetting =
+      userObj.setting['12hr'].trim() === 'checked' ? true : false;
+    if (is12HourFormat(dateString)) {
+      if (userTimeSetting) {
+        return dateString;
+      } else {
+        return convertTimeFormat(dateString, true);
+      }
+    } else {
+      if (userTimeSetting) {
+        return convertTimeFormat(dateString, false);
+      } else {
+        return dateString;
+      }
+    }
+  } catch (error) {
+    console.error('');
+  }
+}
+
+function getFormattedDatesArray(array, timePropertyName, username){
+  const result = [...array];
+  for (let i = 0 ; i < result.length; i++){
+    let existingTime = result[i][timePropertyName];
+    result[i][timePropertyName] = getAppropriateTimeString(existingTime, username);
+  }
+  return result;
 }
