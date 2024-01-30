@@ -30,6 +30,20 @@
           "dueTime": "2/5/2024, 10:00:00 AM",
           "priority": "yellow",
           "visibility": ""
+        },
+        {
+          "taskName": "Debug the controller class",
+          "courseCode": "SECT-2121",
+          "dueTime": "1/31/2024, 06:00:00 PM",
+          "description": "Don't alter any other code.",
+          "priority": "#1EFE80"
+        },
+        {
+          "taskName": "Prepare for SE presentation",
+          "courseCode": "SECT-2121",
+          "dueTime": "1/31/2024, 06:00:00 PM",
+          "description": "Make a slide containing the key points for the presentation.",
+          "priority": "yellow"
         }
       ],
       "courses": [
