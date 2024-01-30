@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/priorityRadioButton.css">
+    <script src="https://kit.fontawesome.com/fe3d3f96be.js"></script>
+</head>
+<body>
+    <div class="flex text-white">
+        <aside class="bg-[#21242C] w-1/6 min-h-screen flex flex-col">
+            <div class="text-center py-5" id="avatar-box">
+                <figure class="hover:translate-y-2 transition-all cursor-pointer">
+                    <a href=""><i class="fa-solid fa-circle-user text-6xl"></i></a>
+                    <figcaption>{{username}}</figcaption>
+                </figure>
+            </div>
+            <nav>
+                <ul class="flex flex-col text-2xl">
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all text-[#1EFE80] border-r-4 border-[#1EFE80]"><i class="fa-solid fa-table-cells text-2xl mr-3 w-8" style="color: #1EFE80;"></i>Dashboard</li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-book text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/courses/{{username}}">Courses</a></li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-calendar-day text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/calendar/{{username}}">Calendar</a></li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-bell text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/notification/{{username}}">Notification</a></li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-gear text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/setting/{{username}}">Setting</a></li>
+                </ul>
+            </nav>
+            <div class="text-center mt-auto" id="app-logo">
+                <figure>
+                    <a class="block" href="/"><i class="fa-solid fa-school text-4xl" style="color: #1EFE80;"></i></a>
+                    <figcaption class="font-mono font-bold">Academic Planner</figcaption>
+                </figure>
+            </div>
+        </aside>
+        <div id="new-task-modal" class="fixed z-10 p-10 top-[50%] left-[50%] max-md:w-[95vw] translate-x-[-50%] translate-y-[-45%] h-[80vh] w-[50vw] rounded-xl shadow-2xl bg-slate-700">
+            <i class="fixed fa-solid fa-close top-3 right-5 hover:scale-125 hover:cursor-pointer transition-all text-red-800 text-2xl" onclick="document.getElementById('new-task-modal').remove()"></i>
+            <h3 class="text-center text-4xl text-[#1EFE80]">Add new task</h3>
+            <form action="/dashboard/{{username}}/new" method="post" class="flex flex-col gap-8 my-5">
+                <div class="relative">
+                    <input required
+                        id="taskName"
+                        name="taskName"
+                        placeholder="e.g. Prepare a Figma design for the project"
+                        type="text"
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="taskName"
+                        class="absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >Title</label
+                    >
+                </div>
+                <div class="relative">
+                    <input required
+                        id="courseCode"
+                        name="courseCode"
+                        placeholder="e.g. SECT-2111"
+                        type="text"
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="courseCode"
+                        class="absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >Course code</label
+                    >
+                </div>
+                <div class="relative">
+                    <input required
+                        id="dueTime"
+                        name="dueTime"
+                        placeholder="e.g. 1/31/2024, 12:00:00 AM"
+                        type="text"
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="dueTime"
+                        class="absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >Due time</label
+                    >
+                </div>
+                <textarea class="bg-slate-600 p-1 rounded focus:outline-slate-700" placeholder="Description (optional)" rows="5" name="description" id="description"></textarea>
+                <div class="radio-input w-fit fixed bottom-0 left-0">
+                    <input required checked value="#1EFE80" name="priority" id="color-1" type="radio">
+                    <label for="color-1">
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#ffffff" d="M6 12L10.2426 16.2426L18.727 7.75732" id="Vector"></path> </g> </g></svg>
+                      </span>
+                    </label>
+                  
+                    <input required value="yellow" name="priority" id="color-2" type="radio">
+                    <label for="color-2">
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#ffffff" d="M6 12L10.2426 16.2426L18.727 7.75732" id="Vector"></path> </g> </g></svg>
+                      </span>
+                    </label>
+                  
+                    <input required value="red" name="priority" id="color-3" type="radio">
+                    <label for="color-3">
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#ffffff" d="M6 12L10.2426 16.2426L18.727 7.75732" id="Vector"></path> </g> </g></svg>
+                      </span>
+                    </label>
+                </div>
+                <button
+                    type="submit"
+                    class="h-fit self-center text-black bg-blue-400 px-4 py-1 text-xl font-semibold rounded-3xl block ml-auto m-3 hover:bg-blue-600 hover:scale-110 transition-all">
+                    Add task
+                </button>
+            </form>
+        </div>
+        <main class="bg-[#272B34] w-5/6 min-h-screen p-10">
+            <div class="border border-[#1EFE80] rounded p-5" id="welcoming-msg">
+                <h1 class="text-6xl text-[#1EFE80]">Hello {{username}}!</h1>
+                <p>Let's get started with your day.</p>
+                <p>You have <span class="text-yellow-300 text-4xl mx-2">{{pendingTaskCount}}</span> pending tasks at the moment...</p>
+            </div>
+            <button class="rounded-3xl py-2 px-3 my-5 border-[#1EFE80] bg-[#1EFE80] text-black font-semibold hover:text-xl hover:p-3 hover:bg-emerald-300 transition-all"><a href="/dashboard/{{username}}/new">+Add new task</a></button>
+            <section id="tasks">
+                <h1 class="text-4xl">Tasks</h1>
+                <h3>Today - <span class="text-[#1EFE80]" id="current-date">{{currentTime}}</span></h3>
+                <div class="flex flex-wrap my-2" id="list-of-tasks">
+                    {{#each arrayOfTasks}}
+                    <div class="{{this.visibility}} bg-[#21242C] rounded-2xl p-3 w-2/5 flex m-2" title="{{this.courseCode}}">
+                        <p class="h-full w-fit"><i class="fa-solid fa-circle" style="color: {{this.priority}};"></i></p>
+                        <div class="h-full w-full px-3">
+                            <h4 class="flex justify-between"><span class="text-2xl">{{this.taskName}}</span><a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a></i></h4>
+                            <h5 class="text-[#1EFE80]">{{this.dueTime}}</h5>
+                            <p class="text-sm">{{this.description}}</p>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
