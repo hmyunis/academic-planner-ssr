@@ -1,0 +1,26 @@
+.input-bar {
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #303030;
+    border-bottom: 2px solid #9a9a9a;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #2d2d2d;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.input-bar::placeholder {
+    color: #9a9a9a;
+}
+
+.input-bar:hover {
+    background-color: #313131;
+}
+
+.input-bar:active,
+.input-bar:focus {
+    background-color: #1e1f20;
+    border: 1px solid #2d2d2d;
+    border-bottom: 2px solid #1EFE80;
+}

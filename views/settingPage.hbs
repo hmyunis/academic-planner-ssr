@@ -1,0 +1,135 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Setting</title>
+    <script src='https://cdn.tailwindcss.com'></script>
+    {{! <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script> }}
+    {{! <link rel="stylesheet" href="css/toggleSwitch.css"> }}
+    <style>
+      .toggle-switch { position: relative; display: inline-block; width: 80px;
+      height: 40px; cursor: pointer; } .toggle-switch input[type='checkbox'] {
+      display: none; } .toggle-switch-background { position: absolute; top: 0;
+      left: 0; width: 100%; height: 100%; background-color: #ddd; border-radius:
+      20px; box-shadow: inset 0 0 0 2px #ccc; transition: background-color 0.3s
+      ease-in-out; } .toggle-switch-handle { position: absolute; top: 5px; left:
+      5px; width: 30px; height: 30px; background-color: #fff; border-radius:
+      50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); transition: transform 0.3s
+      ease-in-out; } .toggle-switch::before { content: ''; position: absolute;
+      top: -25px; right: -35px; font-size: 12px; font-weight: bold; color: #aaa;
+      text-shadow: 1px 1px #fff; transition: color 0.3s ease-in-out; }
+      .toggle-switch input[type='checkbox']:checked + .toggle-switch-handle {
+      transform: translateX(45px); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 0
+      0 3px #05c46b; } .toggle-switch input[type='checkbox']:checked +
+      .toggle-switch-background { background-color: #05c46b; box-shadow: inset 0
+      0 0 2px #04b360; } .toggle-switch input[type='checkbox']:checked +
+      .toggle-switch:before { content: 'On'; color: #1EFE80; right: -15px; }
+      .toggle-switch input[type='checkbox']:checked + .toggle-switch-background
+      .toggle-switch-handle { transform: translateX(40px); }
+    </style>
+    <script src='https://kit.fontawesome.com/fe3d3f96be.js'></script>
+  </head>
+  <body>
+    <div class='flex text-white'>
+      <aside class='bg-[#21242C] w-1/6 min-h-screen flex flex-col'>
+        <div class='text-center py-5' id='avatar-box'>
+          <figure class='hover:translate-y-2 transition-all cursor-pointer'>
+            <a href=''><i class='fa-solid fa-circle-user text-6xl'></i></a>
+            <figcaption>{{username}}</figcaption>
+          </figure>
+        </div>
+        <nav>
+          <ul class='flex flex-col text-2xl'>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            ><i
+                class='fa-solid fa-table-cells text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i><a href='/dashboard/{{username}}'>Dashboard</a></li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            ><i
+                class='fa-solid fa-book text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i><a href='/courses/{{username}}'>Courses</a></li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            ><i
+                class='fa-solid fa-calendar-day text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i><a href='/calendar/{{username}}'>Calendar</a></li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            ><i
+                class='fa-solid fa-bell text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i><a href='/notification/{{username}}'>Notification</a></li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all text-[#1EFE80] border-r-4 border-[#1EFE80]'
+            ><i
+                class='fa-solid fa-gear text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i>Setting</li>
+          </ul>
+        </nav>
+        <div class='text-center mt-auto' id='app-logo'>
+          <figure>
+            <a class='block' href='/'><i
+                class='fa-solid fa-school text-4xl'
+                style='color: #1EFE80;'
+              ></i></a>
+            <figcaption class='font-mono font-bold'>Academic Planner</figcaption>
+          </figure>
+        </div>
+      </aside>
+      <main class='bg-[#272B34] w-5/6 min-h-screen p-10 relative'>
+        <h1 class='text-[#1EFE80] text-5xl'>Setting</h1>
+        <button
+          class='absolute top-5 right-5 border border-red-500 text-red-500 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-red-500 hover:text-black hover:scale-125 transition-all duration-500'
+        >
+          Log out
+        </button>
+        <section
+          class='bg-[#21242C] p-16 w-2/3 mx-auto my-10 rounded-xl flex flex-col gap-8'
+        >
+          <div class='flex justify-between'>
+            <p class='text-3xl'>12hr Time Format:</p>
+            <label class='toggle-switch'>
+              <input type='checkbox' id='time-format' {{timeFormat12}} />
+              <div class='toggle-switch-background'>
+                <div class='toggle-switch-handle'></div>
+              </div>
+            </label>
+          </div>
+          <p
+            class='w-fit text-3xl hover:text-[2rem] cursor-pointer transition-all duration-300 hover:text-[#1EFE80]'
+          >Configure enrolled courses</p>
+          <div class='flex justify-between'>
+            <p class='text-3xl'>Enable notifications: </p>
+            <label class='toggle-switch'>
+              <input
+                type='checkbox'
+                id='enable-notification'
+                {{enableNotification}}
+              />
+              <div class='toggle-switch-background'>
+                <div class='toggle-switch-handle'></div>
+              </div>
+            </label>
+          </div>
+          <p
+            class='w-fit text-3xl hover:text-[2rem] cursor-pointer transition-all duration-300 hover:text-[#1EFE80]'
+          >About</p>
+          <p
+            class='w-fit hover:text-xl cursor-pointer transition-all duration-300 text-red-500 hover:text-red-700'
+          >Delete account</p>
+        </section>
+        <button
+          class='absolute right-10 text-black bg-blue-400 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-blue-600 hover:scale-110 transition-all'
+        >
+          Save changes
+        </button>
+      </main>
+    </div>
+  </body>
+</html>

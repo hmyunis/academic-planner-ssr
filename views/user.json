@@ -1,0 +1,79 @@
+[
+  {
+    "user_1": {
+      "accountDetails": {
+        "username": "Hamdi",
+        "email": "test@test.com",
+        "password": "12345678"
+      },
+      "tasks": [
+        {
+          "taskName": "Finish SE",
+          "courseCode": "SECT-2121",
+          "description": "This includes both the TPD and implementation.",
+          "dueTime": "1/31/2024, 12:00:00 AM",
+          "priority": "red",
+          "visibility": ""
+        },
+        {
+          "taskName": "Study for SE Final exam",
+          "courseCode": "SECT-2110",
+          "description": "All chapters starting from 1 to 9.",
+          "dueTime": "1/29/2024, 12:28:14 PM",
+          "priority": "#1EFE80",
+          "visibility": ""
+        },
+        {
+          "taskName": "Discuss about HCI project",
+          "courseCode": "SECT-2111",
+          "description": "Don't forget to mention visual clutter.",
+          "dueTime": "2/5/2024, 10:00:00 AM",
+          "priority": "yellow",
+          "visibility": ""
+        }
+      ],
+      "courses": [
+        {
+          "courseCode": "SECT-2121",
+          "courseName": "Fundamentals of Software Engineering",
+          "instructor": "Nuniyat Kifle",
+          "ECTS": 5,
+          "visibility": ""
+        },
+        {
+          "courseCode": "SECT-2111",
+          "courseName": "Human Computer Interaction",
+          "instructor": "Manjunath",
+          "ECTS": 5,
+          "visibility": ""
+        }
+      ],
+      "notifications": [
+        {
+          "message": "You have successfully added your task.",
+          "timestamp": "2/9/2024, 10:00:00 AM",
+          "isRead": "green"
+        },
+        {
+          "message": "You have successfully updated your courses.",
+          "timestamp": "2/6/2024, 10:21:00 AM",
+          "isRead": "green"
+        },
+        {
+          "message": "You have successfully updated your setting.",
+          "timestamp": "2/6/2024, 09:21:00 AM",
+          "isRead": "green"
+        },
+        {
+          "message": "You have failed to add a task.",
+          "timestamp": "2/5/2024, 12:34:00 AM",
+          "isRead": "red"
+        }
+      ],
+      "setting": {
+        "12hr": "checked",
+        "enableNotifications": ""
+      }
+    }
+  }
+]

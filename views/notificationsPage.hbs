@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/fe3d3f96be.js"></script>
+</head>
+<body>
+    <div class="flex text-white">
+        <aside class="bg-[#21242C] w-1/6 min-h-screen flex flex-col">
+            <div class="text-center py-5" id="avatar-box">
+                <figure class="hover:translate-y-2 transition-all cursor-pointer">
+                    <a href=""><i class="fa-solid fa-circle-user text-6xl"></i></a>
+                    <figcaption>{{username}}</figcaption>
+                </figure>
+            </div>
+            <nav>
+                <ul class="flex flex-col text-2xl">
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-table-cells text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/dashboard/{{username}}">Dashboard</a></li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-book text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/courses/{{username}}">Courses</a></li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-calendar-day text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/calendar/{{username}}">Calendar</a></li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all text-[#1EFE80] border-r-4 border-[#1EFE80]"><i class="fa-solid fa-bell text-2xl mr-3 w-8" style="color: #1EFE80;"></i>Notification</li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-gear text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/setting/{{username}}">Setting</a></li>
+                </ul>
+            </nav>
+            <div class="text-center mt-auto" id="app-logo">
+                <figure>
+                    <a class="block" href="/"><i class="fa-solid fa-school text-4xl" style="color: #1EFE80;"></i></a>
+                    <figcaption class="font-mono font-bold">Academic Planner</figcaption>
+                </figure>
+            </div>
+        </aside>
+        <main class="bg-[#272B34] w-5/6 min-h-screen p-10">
+            <hgroup class="relative">
+                <h1 class="text-[#1EFE80] text-5xl">Notification</h1>
+                <p class="my-3">You have <span class="text-yellow-300 text-4xl mx-2">{{numberOfNotifications}}</span> notifications.</p>
+            </hgroup>
+            <section class="my-5" id="notifications">
+                <h3>Now - <span class="text-[#1EFE80]" id="current-date">{{currentTime}}</span></h3>
+                <div class="flex flex-col my-2" id="list-of-notifications">
+                    {{#each arrayOfNotifications}}
+                    <div class="bg-[#21242C] rounded-2xl p-3 w-4/5 flex m-2 hover:-translate-y-1 transition-all duration-300 active:bg-slate-900">
+                        <p class="h-full w-fit"><i class="fa-solid fa-circle" style="color: {{this.isRead}};"></i></p>
+                        <div class="w-full px-3">
+                            <h4 class="flex justify-between">{{this.message}}<a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a></i></h4>
+                            <h5 class="text-slate-400">{{this.timestamp}}</h5>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

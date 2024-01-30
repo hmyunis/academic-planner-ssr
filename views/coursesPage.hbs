@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/fe3d3f96be.js"></script>
+</head>
+<body>
+    <div class="flex text-white">
+        <aside class="bg-[#21242C] w-1/6 min-h-screen flex flex-col">
+            <div class="text-center py-5" id="avatar-box">
+                <figure class="hover:translate-y-2 transition-all cursor-pointer">
+                    <a href=""><i class="fa-solid fa-circle-user text-6xl"></i></a>
+                    <figcaption>{{username}}</figcaption>
+                </figure>
+            </div>
+            <nav>
+                <ul class="flex flex-col text-2xl">
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-table-cells text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/dashboard/{{username}}">Dashboard</a></li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all text-[#1EFE80] border-r-4 border-[#1EFE80]"><i class="fa-solid fa-book text-2xl mr-3 w-8" style="color: #1EFE80;"></i>Courses</li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-calendar-day text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/calendar/{{username}}">Calendar</a></li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-bell text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/notification/{{username}}">Notification</a></li>
+                    <li class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"><i class="fa-solid fa-gear text-2xl mr-3 w-8" style="color: #1EFE80;"></i><a href="/setting/{{username}}">Setting</a></li>
+                </ul>
+            </nav>
+            <div class="text-center mt-auto" id="app-logo">
+                <figure>
+                    <a class="block" href=""><i class="fa-solid fa-school text-4xl" style="color: #1EFE80;"></i></a>
+                    <figcaption class="font-mono font-bold">Academic Planner</figcaption>
+                </figure>
+            </div>
+        </aside>
+        <main class="bg-[#272B34] w-5/6 min-h-screen p-10">
+            <hgroup class="relative">
+                <button
+                    class="absolute top-3 right-3 border border-red-500 text-red-500 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-red-500 hover:text-black hover:scale-125 transition-all duration-500">
+                    Reset
+                </button>
+                <h1 class="text-[#1EFE80] text-5xl">Courses</h1>
+                <p class="mt-3">You have been registered for these<span class="text-yellow-300 text-4xl mx-2">{{numberOfCourses}}</span> courses in this semester.</p>
+            </hgroup>
+            <section class="my-5 flex flex-wrap">
+                {{#each arrayOfCourses}}
+                <div class="bg-[#21242C] rounded-2xl p-3 w-2/5 m-2 hover:-translate-y-2 transition-all duration-500 active:bg-slate-900">
+                    <div class="h-full px-3">
+                        <h4 class="flex justify-between mb-3"><span class="text-xl"><span class="text-[#1EFE80] font-semibold">{{this.courseCode}}</span> {{this.courseName}}</span><a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a></i></h4>
+                        <h5>Instructor: <span>{{this.instructor}}</span></h5>
+                        <h5>ECTS: <span class="text-[#1EFE80]">{{this.ECTS}}</span></h5>
+                    </div>
+                </div>
+                {{/each}}
+            </section>
+        </main>
+    </div>
+</body>
+</html>
