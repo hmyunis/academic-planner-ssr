@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/newCourseInputField.css">
     <script src="https://kit.fontawesome.com/fe3d3f96be.js"></script>
 </head>
 <body>
@@ -41,7 +42,6 @@
                 <h1 class="text-[#1EFE80] text-5xl">Courses</h1>
                 <p class="mt-3">You have been registered for these<span class="text-yellow-300 text-4xl mx-2">{{numberOfCourses}}</span> courses in this semester.</p>
             </hgroup>
-            <button class="rounded-3xl py-2 px-3 mt-5 border-[#1EFE80] bg-[#1EFE80] text-black font-semibold hover:text-xl hover:p-3 hover:bg-emerald-300 transition-all"><a href="/courses/{{username}}/new">+Add new course</a></button>
             <section class="my-5 flex flex-wrap">
                 {{#each arrayOfCourses}}
                 <div class="bg-[#21242C] rounded-2xl p-3 w-2/5 m-2 hover:-translate-y-2 transition-all duration-500 active:bg-slate-900">
@@ -54,6 +54,60 @@
                 {{/each}}
             </section>
         </main>
+        <div id="new-course-modal" class="fixed z-10 p-10 top-[50%] left-[50%] max-md:w-[95vw] translate-x-[-50%] translate-y-[-45%] h-[65vh] w-[50vw] rounded-xl shadow-2xl bg-slate-700">
+            <i class="fixed fa-solid fa-close top-3 right-5 hover:scale-125 hover:cursor-pointer transition-all text-red-800 text-2xl" onclick="document.getElementById('new-course-modal').remove()"></i>
+            <h3 class="text-center text-4xl text-[#1EFE80]">Add new course</h3>
+            <form action="/courses/{{username}}/new" method="post" class="flex flex-col gap-8 my-5">
+                <div class="relative">
+                    <input required
+                        id="courseName"
+                        name="courseName"
+                        placeholder="e.g. Fundamentals of Software Engineering"
+                        type="text"
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="courseName"
+                        class="absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >Course name</label
+                    >
+                </div>
+                <div class="relative">
+                    <input required
+                        id="courseCode"
+                        name="courseCode"
+                        placeholder="e.g. SECT-2111"
+                        type="text"
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="courseCode"
+                        class="absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >Course code</label
+                    >
+                </div>
+                <div class="relative">
+                    <input required
+                        id="instructor"
+                        name="instructor"
+                        placeholder="e.g. Nuniyat Kifle"
+                        type="text"
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="instructor"
+                        class="absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >Instructor</label
+                    >
+                </div>
+                <input required type="number" class="input-bar w-24 h-8" name="ECTS" placeholder="ECTS">
+                <button
+                    type="submit"
+                    class="h-fit text-black bg-blue-400 px-4 py-1 text-xl font-semibold rounded-3xl block w-fit ml-auto hover:bg-blue-600 hover:scale-110 transition-all">
+                    Add course
+                </button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
