@@ -4,35 +4,40 @@
       "accountDetails": {
         "username": "guest",
         "email": "test@test.com",
-        "password": "12345678"
+        "password": "12345678",
+        "fullName": "Gustav Guesto",
+        "schoolName": "AAU",
+        "major": "SiTE",
+        "academicYear": "2023-2024"
       },
       "tasks": [
         {
           "taskName": "Finish SE",
+          "taskType": "assignment",
           "courseCode": "SECT-2121",
           "description": "This includes both the TPD and implementation.",
           "dueTime": "1/31/2024, 12:00:00 AM",
-          "priority": "red",
-          "visibility": ""
+          "priority": "red"
         },
         {
           "taskName": "Study for SE Final exam",
+          "taskType": "exam",
           "courseCode": "SECT-2110",
           "description": "All chapters starting from 1 to 9.",
           "dueTime": "1/29/2024, 12:28:14 PM",
-          "priority": "#1EFE80",
-          "visibility": ""
+          "priority": "#1EFE80"
         },
         {
           "taskName": "Discuss about HCI project",
+          "taskType": "other",
           "courseCode": "SECT-2111",
           "description": "Don't forget to mention visual clutter.",
           "dueTime": "2/5/2024, 10:00:00 AM",
-          "priority": "yellow",
-          "visibility": ""
+          "priority": "yellow"
         },
         {
           "taskName": "Debug the controller class",
+          "taskType": "assignment",
           "courseCode": "SECT-2121",
           "dueTime": "1/31/2024, 06:00:00 PM",
           "description": "Don't alter any other code.",
@@ -40,6 +45,7 @@
         },
         {
           "taskName": "Prepare for SE presentation",
+          "taskType": "assignment",
           "courseCode": "SECT-2121",
           "dueTime": "1/31/2024, 06:00:00 PM",
           "description": "Make a slide containing the key points for the presentation.",
@@ -52,14 +58,16 @@
           "courseName": "Fundamentals of Software Engineering",
           "instructor": "Nuniyat Kifle",
           "ECTS": 5,
-          "visibility": ""
+          "startDate": "1/26/2024, 06:00:00 PM",
+          "endDate": "2/25/2024, 06:00:00 PM"
         },
         {
           "courseCode": "SECT-2111",
           "courseName": "Human Computer Interaction",
           "instructor": "Manjunath",
           "ECTS": 5,
-          "visibility": ""
+          "startDate": "1/25/2024, 06:00:00 PM",
+          "endDate": "2/25/2024, 08:00:00 PM"
         }
       ],
       "notifications": [
@@ -86,6 +94,7 @@
       ],
       "setting": {
         "12hr": "checked",
+        "allowEmail": "checked",
         "enableNotifications": ""
       }
     }
