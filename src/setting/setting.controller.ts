@@ -14,12 +14,19 @@ export class SettingController {
     };
   }
 
+  @Get('/:username/about')
+  @Render('modals/aboutPage')
+  getAboutPage(@Param('username') username) {
+    const user = getUserbyUsername(username);
+    return { username };
+  }
+
   @Post('/:username/save')
   @Render('settingPage')
   updateSetting(@Body() body, @Param('username') username) {
     const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
-    readUser.setting['12hr'] = body["12hr"]??"";
-    readUser.setting.enableNotifications = body.enableNotifications??"";
+    readUser.setting['12hr'] = body['12hr'] ?? '';
+    readUser.setting.enableNotifications = body.enableNotifications ?? '';
     overwriteFile(readUser, username);
     const user = getUserbyUsername(username);
     return {
@@ -27,8 +34,9 @@ export class SettingController {
       timeFormat12: user.setting['12hr'],
       enableNotification: user.setting.enableNotifications,
     };
-
   }
+
+  
 }
 
 function getUserbyUsername(username: string) {

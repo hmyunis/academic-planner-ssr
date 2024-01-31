@@ -1,0 +1,120 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Setting</title>
+    <script src='https://cdn.tailwindcss.com'></script>
+    {{! <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script> }}
+    <link rel='stylesheet' href='/css/toggleSwitch.css' />
+    <script src='https://kit.fontawesome.com/fe3d3f96be.js'></script>
+  </head>
+  <body>
+    <div class='flex text-white'>
+      <aside class='bg-[#21242C] w-1/6 min-h-screen flex flex-col'>
+        <div class='text-center py-5' id='avatar-box'>
+          <figure class='hover:translate-y-2 transition-all cursor-pointer'>
+            <a href=''><i class='fa-solid fa-circle-user text-6xl'></i></a>
+            <figcaption>{{username}}</figcaption>
+          </figure>
+        </div>
+        <nav>
+          <ul class='flex flex-col text-2xl'>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            ><i
+                class='fa-solid fa-table-cells text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i><a href='/dashboard/{{username}}'>Dashboard</a></li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            ><i
+                class='fa-solid fa-book text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i><a href='/courses/{{username}}'>Courses</a></li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            ><i
+                class='fa-solid fa-calendar-day text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i><a href='/calendar/{{username}}'>Calendar</a></li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            ><i
+                class='fa-solid fa-bell text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i><a href='/notification/{{username}}'>Notification</a></li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all text-[#1EFE80] border-r-4 border-[#1EFE80]'
+            ><i
+                class='fa-solid fa-gear text-2xl mr-3 w-8'
+                style='color: #1EFE80;'
+              ></i>Setting</li>
+          </ul>
+        </nav>
+        <div class='text-center mt-auto' id='app-logo'>
+          <figure>
+            <a class='block' href='/'><i
+                class='fa-solid fa-school text-4xl'
+                style='color: #1EFE80;'
+              ></i></a>
+            <figcaption class='font-mono font-bold'>Academic Planner</figcaption>
+          </figure>
+        </div>
+      </aside>
+      <main class='bg-[#272B34] w-5/6 min-h-screen p-10 relative'>
+        <form method="post" action="/setting/{{username}}/save">
+        <h1 class='text-[#1EFE80] text-5xl'>Setting</h1>
+        <button
+          class='absolute top-5 right-5 border border-red-500 text-red-500 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-red-500 hover:text-black hover:scale-125 transition-all duration-500'
+        >
+          Log out
+        </button>
+        <section class="bg-[#21242C] p-10 w-full h-fit mx-auto mt-10 mb-5 rounded-xl flex flex-col gap-8">
+                <section>
+                    <h1 class="text-3xl font-semibold">About Academic Planner</h1>
+                    <p>Welcome to Academic Planner, your ultimate companion in navigating the academic journey! Tailored exclusively for students, Academic Planner is a robust web application designed to streamline your course management, task organization, and overall academic experience.</p>
+                    <p>Academic Planner is meticulously crafted with the understanding that student life can be dynamic and challenging. Our platform empowers you to take control of your academic responsibilities, ensuring a smoother path towards success. Whether you're a high school student, undergraduate, or pursuing an advanced degree, Academic Planner is here to simplify and enhance your educational journey.</p>
+                </section>
+                <section>
+                    <h1 class="text-2xl font-semibold">Key Features</h1>
+                    <h2 class="italic mt-5">Course Creation and Management</h2>
+                    <p>Effortlessly organize your courses with our intuitive course creation tools. Customize course details, add professors, and set up your class schedule. With Academic Planner, you have a centralized hub for all your academic endeavors.</p>
+                    <h2 class="italic mt-5">Task Creation and Tracking</h2>
+                    <p>Stay on top of assignments, exams, and deadlines by creating tasks with ease. Our user-friendly interface allows you to categorize tasks by courses, set due dates, and prioritize assignments. Say goodbye to missed deadlines and hello to efficient task management.</p>
+                    <h2 class="italic mt-5">Notification System</h2>
+                    <p>Never miss an important deadline or class update again! Academic Planner's robust notification system ensures that you stay informed about upcoming assignments, exams, and other vital events. Receive timely reminders directly within the platform, keeping you focused and organized.</p>
+                    <h2 class="italic mt-5">User-Friendly Interface</h2>
+                    <p>We understand the importance of a seamless user experience. Academic Planner boasts an intuitive and visually appealing interface, making it easy for users of all tech backgrounds to navigate and utilize the platform effortlessly.</p>
+                </section>
+                <section>
+                    <h1 class="text-2xl font-semibold">How Academic Planner Works</h1>
+                    <p class="mt-3">
+                        1. <span class="text-[#1EFE80] font-semibold">Registration: </span>Sign up for Academic Planner with a few simple steps. All we need is basic information to get you started.
+                    </p>
+                    <p class="mt-3">
+                        2. <span class="text-[#1EFE80] font-semibold">Create Your Courses: </span>Add your courses, specifying details such as course name, professor, and schedule. Academic Planner allows you to have an organized overview of your academic commitments.
+                    </p>
+                    <p class="mt-3">
+                        3. <span class="text-[#1EFE80] font-semibold">Task Management: </span>Begin creating tasks related to your courses. Set due dates, categorize tasks, and track your progress effortlessly.
+                    </p>
+                    <p class="mt-3">
+                        4. <span class="text-[#1EFE80] font-semibold">Stay Informed With Notifications: </span>Receive timely notifications about upcoming tasks, exams, or any changes in your course schedule. Our notification system is designed to keep you informed without overwhelming you.
+                    </p>
+                    <p class="mt-3">
+                        5. <span class="text-[#1EFE80] font-semibold">Privacy is a Priority: </span>Rest easy knowing that your academic data is secure within Academic Planner. We do not share or integrate with external services, putting your privacy first.
+                    </p>
+                </section>
+                <section>
+                    <h1 class="text-2xl font-semibold">Join Academic Planner Today</h1>
+                    <p>Experience the difference Academic Planner can make in your academic life. Join thousands of students who have embraced an organized and efficient approach to their studies. Sign up for Academic Planner today and take the first step towards academic success!</p>
+                </section>
+            </section>
+        <button
+                class="absolute left-10 text-black bg-blue-400 px-10 py-1 text-xl font-semibold rounded-3xl hover:bg-blue-600 hover:scale-110 transition-all">
+                <a href="/setting/{{username}}"><i class="fa-solid fa-arrow-left left-2 absolute"></i>Go back</a>
+            </button>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>

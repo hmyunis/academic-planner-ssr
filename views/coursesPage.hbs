@@ -13,7 +13,7 @@
             <div class="text-center py-5" id="avatar-box">
                 <figure class="hover:translate-y-2 transition-all cursor-pointer">
                     <a href=""><i class="fa-solid fa-circle-user text-6xl"></i></a>
-                    <figcaption>{{username}}</figcaption>
+                    <figcaption id="username-value">{{username}}</figcaption>
                 </figure>
             </div>
             <nav>
@@ -35,6 +35,7 @@
         <main class="bg-[#272B34] w-5/6 min-h-screen p-10">
             <hgroup class="relative">
                 <button
+                    onclick="displayResetConfirmation('guest')"
                     class="absolute top-3 right-3 border border-red-500 text-red-500 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-red-500 hover:text-black hover:scale-125 transition-all duration-500">
                     Reset
                 </button>
@@ -55,5 +56,21 @@
             </section>
         </main>
     </div>
+    <script>
+        const username = document.getElementById('username-value').textContent;
+        function displayResetConfirmation(username){
+            const modalHTML = 
+            `
+            <div id="reset-confirmation-modal" class="fixed z-20 p-5 top-[50%] left-[50%] max-md:w-[95vw] translate-x-[-50%] translate-y-[-45%] h-[25vh] w-[50vw] rounded-xl shadow-2xl bg-slate-700">
+                <h1 class="text-center font-semibold leading-loose text-red-400 text-xl">Do you want to permanently delete all registered courses?</h1>
+                <div class="flex gap-8 my-5 w-full justify-center items-center">
+                    <button class="border-2 rounded-full px-16 py-1 text-3xl block hover:bg-red-400 hover:text-slate-700 font-semibold"><a href="/courses/${username}/reset">Yes</a></button>
+                    <button class="border-2 rounded-full px-16 py-1 text-3xl block hover:bg-[#1EFE80] hover:text-slate-700 font-semibold" onclick="document.getElementById('reset-confirmation-modal').remove()">No</button>
+                </div>
+            </div>
+            `;
+            document.querySelector('main').insertAdjacentHTML('afterbegin', modalHTML);
+        }
+    </script>
 </body>
 </html>

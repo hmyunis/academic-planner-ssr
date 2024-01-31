@@ -44,6 +44,15 @@ export class CoursesController {
       numberOfCourses: user.courses.length,
     };
   }
+
+  @Get('/:username/reset')
+  @Render('coursesPage')
+  deleteAllCourses(@Param('username') username, @Res() res) {
+    const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
+    readUser.courses = [];
+    overwriteFile(readUser, username);
+    return res.redirect(`/courses/${username}`);
+  }
 }
 
 function getUserbyUsername(username: string) {
