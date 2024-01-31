@@ -28,6 +28,11 @@ export class SettingController {
     readUser.setting['12hr'] = body['12hr'] ?? '';
     readUser.setting.enableNotifications = body.enableNotifications ?? '';
     overwriteFile(readUser, username);
+    addNewNotification(
+      'You have successfully updated your setting.',
+      true,
+      username,
+    );
     const user = getUserbyUsername(username);
     return {
       username,
@@ -38,14 +43,13 @@ export class SettingController {
 
   @Get('/:username/delete')
   @Render('signupPage')
-  deleteUserAccount(@Param('username') username){
+  deleteUserAccount(@Param('username') username) {
     const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
     const readJson = JSON.parse(data);
     readJson.splice(getUserIndex(username), 1);
     const jsonString = JSON.stringify(readJson, null, 2);
     fs.writeFileSync(process.env.FILE_PATH, jsonString);
   }
-
 }
 
 function getUserbyUsername(username: string) {
@@ -83,7 +87,7 @@ function overwriteFile(newUserObj, username: string) {
   }
 }
 
-function getUserIndex(username: string){
+function getUserIndex(username: string) {
   try {
     const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
     const readJson = JSON.parse(data);
@@ -96,5 +100,45 @@ function getUserIndex(username: string){
     return null;
   } catch (error) {
     console.error('Error reading or parsing file:', error);
+  }
+}
+
+function addNewNotification(
+  message: string,
+  emailIt: boolean,
+  username: string,
+) {
+  const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
+  if (readUser.setting.enableNotifications !== 'checked') return null;
+  const notification = {
+    message,
+    timestamp: new Date().toLocaleString(),
+    isEmailed: emailIt ? 'green' : 'red',
+  };
+  readUser.notifications.push(notification);
+  overwriteFile(readUser, username);
+  if (emailIt) {
+    const nodemailer = require('nodemailer');
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: 587,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: readUser.accountDetails.email,
+      subject: 'Message from Academic Planner Team',
+      text: message,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error:', error.message);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
   }
 }

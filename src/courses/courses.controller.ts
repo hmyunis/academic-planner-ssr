@@ -28,6 +28,11 @@ export class CoursesController {
       readUser.courses.push(body);
       console.log('Course has been appended successfully.');
       overwriteFile(readUser, username);
+      addNewNotification(
+        `You have registered the course ${body.courseName} successfully.`,
+        true,
+        username,
+      );
     } else {
       console.log(`Course ${body.courseCode} already exists.`);
     }
@@ -106,5 +111,45 @@ function overwriteFile(newUserObj, username: string) {
     }
   } catch (error) {
     console.error('Error writing file:', error);
+  }
+}
+
+function addNewNotification(
+  message: string,
+  emailIt: boolean,
+  username: string,
+) {
+  const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
+  if (readUser.setting.enableNotifications !== 'checked') return null;
+  const notification = {
+    message,
+    timestamp: new Date().toLocaleString(),
+    isEmailed: emailIt ? 'green' : 'red',
+  };
+  readUser.notifications.push(notification);
+  overwriteFile(readUser, username);
+  if (emailIt) {
+    const nodemailer = require('nodemailer');
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: 587,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: readUser.accountDetails.email,
+      subject: 'Message from Academic Planner Team',
+      text: message,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error:', error.message);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
   }
 }
