@@ -14,7 +14,7 @@
         <div class='text-center py-5' id='avatar-box'>
           <figure class='hover:translate-y-2 transition-all cursor-pointer'>
             <a href=''><i class='fa-solid fa-circle-user text-6xl'></i></a>
-            <figcaption>{{username}}</figcaption>
+            <figcaption id="username-value">{{username}}</figcaption>
           </figure>
         </div>
         <nav>
@@ -103,6 +103,7 @@
             class='w-fit text-3xl hover:text-[2rem] cursor-pointer transition-all duration-300 hover:text-[#1EFE80]'
           ><a href="/setting/{{username}}/about">About</a></p>
           <p
+            onclick="displayDeleteConfirmation(document.getElementById('username-value').textContent)"
             class='w-fit hover:text-xl cursor-pointer transition-all duration-300 text-red-500 hover:text-red-700'
           >Delete account</p>
         </section>
@@ -114,5 +115,21 @@
         </form>
       </main>
     </div>
+    <script>
+        const username = document.getElementById('username-value').textContent;
+        function displayDeleteConfirmation(username){
+            const modalHTML = 
+            `
+            <div id="delete-confirmation-modal" class="fixed z-20 p-5 top-[50%] left-[50%] max-md:w-[95vw] translate-x-[-50%] translate-y-[-45%] h-[25vh] w-[50vw] rounded-xl shadow-2xl bg-slate-700">
+                <h1 class="text-center font-semibold leading-loose text-red-400 text-xl">Do you want to permanently delete your account?</h1>
+                <div class="flex gap-8 my-5 w-full justify-center items-center">
+                    <button class="border-2 rounded-full px-16 py-1 text-3xl block hover:bg-red-400 hover:text-slate-700 font-semibold"><a href="/setting/${username}/delete">Yes</a></button>
+                    <button class="border-2 rounded-full px-16 py-1 text-3xl block hover:bg-[#1EFE80] hover:text-slate-700 font-semibold" onclick="document.getElementById('delete-confirmation-modal').remove()">No</button>
+                </div>
+            </div>
+            `;
+            document.querySelector('main').insertAdjacentHTML('afterbegin', modalHTML);
+        }
+    </script>
   </body>
 </html>

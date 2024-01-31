@@ -14,7 +14,7 @@
             <div class="text-center py-5" id="avatar-box">
                 <figure class="hover:translate-y-2 transition-all cursor-pointer">
                     <a href=""><i class="fa-solid fa-circle-user text-6xl"></i></a>
-                    <figcaption>{{username}}</figcaption>
+                    <figcaption id="username-value">{{username}}</figcaption>
                 </figure>
             </div>
             <nav>
@@ -36,7 +36,7 @@
         <main class="bg-[#272B34] w-5/6 min-h-screen p-10">
             <hgroup class="relative">
                 <button
-                    onclick="displayResetConfirmation('guest')"
+                    onclick="displayResetConfirmation(document.getElementById('username-value').textContent)"
                     class="absolute top-3 right-3 border border-red-500 text-red-500 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-red-500 hover:text-black hover:scale-125 transition-all duration-500">
                     Reset
                 </button>

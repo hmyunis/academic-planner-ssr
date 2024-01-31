@@ -36,7 +36,16 @@ export class SettingController {
     };
   }
 
-  
+  @Get('/:username/delete')
+  @Render('signupPage')
+  deleteUserAccount(@Param('username') username){
+    const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
+    const readJson = JSON.parse(data);
+    readJson.splice(getUserIndex(username), 1);
+    const jsonString = JSON.stringify(readJson, null, 2);
+    fs.writeFileSync(process.env.FILE_PATH, jsonString);
+  }
+
 }
 
 function getUserbyUsername(username: string) {
@@ -71,5 +80,21 @@ function overwriteFile(newUserObj, username: string) {
     }
   } catch (error) {
     console.error('Error writing file:', error);
+  }
+}
+
+function getUserIndex(username: string){
+  try {
+    const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
+    const readJson = JSON.parse(data);
+    for (let i = 0; i < Object.keys(readJson).length; i++) {
+      let user = readJson[i][`user_${i + 1}`];
+      if (user.accountDetails.username.trim() === username.trim()) {
+        return i;
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error('Error reading or parsing file:', error);
   }
 }
