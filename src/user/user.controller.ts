@@ -22,7 +22,11 @@ export class UserController {
       currentTime: new Date().toLocaleString(),
       username,
       pendingTaskCount: user.tasks.length,
-      arrayOfTasks: getFormattedDatesArray(user.tasks, "dueTime", username),
+      arrayOfTasks: getFormattedDatesArray(
+        user.tasks,
+        'dueTime',
+        username,
+      ).reverse(),
     };
   }
 
@@ -34,9 +38,19 @@ export class UserController {
         readUser.tasks.push(body);
         console.log('Task has been appended successfully.');
         overwriteFile(readUser, username);
+        addNewNotification(
+          'You have successfully added your task.',
+          false,
+          username,
+        );
       } else {
         console.log(
           `You haven't been registered for the course ${body.courseCode}.`,
+        );
+        addNewNotification(
+          `You haven't been registered for the course ${body.courseCode}.`,
+          false,
+          username,
         );
       }
     } else {
@@ -53,7 +67,11 @@ export class UserController {
       currentTime: new Date().toLocaleString(),
       username,
       pendingTaskCount: user.tasks.length,
-      arrayOfTasks: getFormattedDatesArray(user.tasks, "dueTime", username),
+      arrayOfTasks: getFormattedDatesArray(
+        user.tasks,
+        'dueTime',
+        username,
+      ).reverse(),
     };
   }
 
@@ -72,7 +90,11 @@ export class UserController {
     res.render('notificationsPage', {
       currentTime: new Date().toLocaleString(),
       username,
-      arrayOfNotifications: getFormattedDatesArray(user.notifications, "timestamp", username),
+      arrayOfNotifications: getFormattedDatesArray(
+        user.notifications,
+        'timestamp',
+        username,
+      ).reverse(),
       numberOfNotifications: user.notifications.length,
     });
   }
@@ -207,11 +229,54 @@ function getAppropriateTimeString(dateString: string, username: string) {
   }
 }
 
-function getFormattedDatesArray(array, timePropertyName, username){
+function getFormattedDatesArray(array, timePropertyName, username) {
   const result = [...array];
-  for (let i = 0 ; i < result.length; i++){
+  for (let i = 0; i < result.length; i++) {
     let existingTime = result[i][timePropertyName];
-    result[i][timePropertyName] = getAppropriateTimeString(existingTime, username);
+    result[i][timePropertyName] = getAppropriateTimeString(
+      existingTime,
+      username,
+    );
   }
   return result;
+}
+
+function addNewNotification(
+  message: string,
+  emailIt: boolean,
+  username: string,
+) {
+  const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
+  if (readUser.setting.enableNotifications !== 'checked') return null;
+  const notification = {
+    message,
+    timestamp: new Date().toLocaleString(),
+    isEmailed: emailIt ? 'green' : 'red',
+  };
+  readUser.notifications.push(notification);
+  overwriteFile(readUser, username);
+  if (emailIt) {
+    const nodemailer = require('nodemailer');
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: 587,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: readUser.accountDetails.email,
+      subject: 'Message from Academic Planner Team',
+      text: message,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error:', error.message);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
+  }
 }

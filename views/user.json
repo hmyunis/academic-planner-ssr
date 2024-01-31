@@ -66,22 +66,22 @@
         {
           "message": "You have successfully added your task.",
           "timestamp": "2/9/2024, 10:00:00 AM",
-          "isRead": "green"
+          "isEmailed": "green"
         },
         {
           "message": "You have successfully updated your courses.",
           "timestamp": "2/6/2024, 10:21:00 AM",
-          "isRead": "green"
+          "isEmailed": "green"
         },
         {
           "message": "You have successfully updated your setting.",
           "timestamp": "2/6/2024, 09:21:00 AM",
-          "isRead": "green"
+          "isEmailed": "green"
         },
         {
           "message": "You have failed to add a task.",
           "timestamp": "2/5/2024, 12:34:00 AM",
-          "isRead": "red"
+          "isEmailed": "red"
         }
       ],
       "setting": {
