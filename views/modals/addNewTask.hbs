@@ -79,6 +79,20 @@
                         >Due time</label
                     >
                 </div>
+                <div class="flex flex-col gap-4 fixed right-20 top-[25%]">
+                    <div>
+                        <label for="assignment">Assignment</label>
+                        <input required type="radio" name="taskType" id="assignment" value="assignment">
+                    </div>
+                    <div>
+                        <label for="exam">Exam</label>
+                        <input type="radio" name="taskType" id="exam" value="exam">
+                    </div>
+                    <div>
+                        <label for="other">Other</label>
+                        <input type="radio" name="taskType" id="other" value="other">
+                    </div>
+                </div>
                 <textarea class="bg-slate-600 p-1 rounded focus:outline-slate-700" placeholder="Description (optional)" rows="5" name="description" id="description"></textarea>
                 <div class="radio-input w-fit fixed bottom-0 left-0">
                     <input required checked value="#1EFE80" name="priority" id="color-1" type="radio">
@@ -111,7 +125,7 @@
         </div>
         <main class="bg-[#272B34] w-5/6 min-h-screen p-10">
             <div class="border border-[#1EFE80] rounded p-5" id="welcoming-msg">
-                <h1 class="text-6xl text-[#1EFE80]">Hello {{username}}!</h1>
+                <h1 class="text-4xl text-[#1EFE80]">Hello {{username}}!</h1>
                 <p>Let's get started with your day.</p>
                 <p>You have <span class="text-yellow-300 text-4xl mx-2">{{pendingTaskCount}}</span> pending tasks at the moment...</p>
             </div>
@@ -121,7 +135,7 @@
                 <h3>Today - <span class="text-[#1EFE80]" id="current-date">{{currentTime}}</span></h3>
                 <div class="flex flex-wrap my-2" id="list-of-tasks">
                     {{#each arrayOfTasks}}
-                    <div class="{{this.visibility}} bg-[#21242C] rounded-2xl p-3 w-2/5 flex m-2" title="{{this.courseCode}}">
+                    <div class="bg-[#21242C] rounded-2xl p-3 w-2/5 flex m-2" title="{{this.courseCode}}">
                         <p class="h-full w-fit"><i class="fa-solid fa-circle" style="color: {{this.priority}};"></i></p>
                         <div class="h-full w-full px-3">
                             <h4 class="flex justify-between"><span class="text-2xl">{{this.taskName}}</span><a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a></i></h4>

@@ -40,7 +40,7 @@ export class UserController {
         overwriteFile(readUser, username);
         addNewNotification(
           'You have successfully added your task.',
-          false,
+          true,
           username,
         );
       } else {
@@ -97,6 +97,15 @@ export class UserController {
       ).reverse(),
       numberOfNotifications: user.notifications.length,
     });
+  }
+
+  @Get('/notification/:username/clear')
+  @Render('notificationsPage')
+  deleteAllNotification(@Param('username') username, @Res() res) {
+    const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
+    readUser.notifications = [];
+    overwriteFile(readUser, username);
+    return res.redirect(`/notification/${username}`);
   }
 }
 
@@ -157,16 +166,17 @@ function courseExists(courseCode: string, username: string) {
     const readJson = JSON.parse(data);
     for (let i = 0; i < Object.keys(readJson).length; i++) {
       const user = readJson[i][`user_${i + 1}`];
-      if (
-        user.accountDetails.username.trim() === username.trim() &&
-        user.courses.courseCode.trim() === courseCode.trim()
-      ) {
-        return true;
+      if (user.accountDetails.username.trim() === username.trim()) {
+        for (let j = 0; j < user.courses.length; j++) {
+          if (user.courses[j].courseCode.trim() === courseCode.trim()) {
+            return true;
+          }
+        }
       }
     }
     return false;
   } catch (error) {
-    console.error();
+    console.error(error);
   }
 }
 
@@ -210,7 +220,7 @@ function getAppropriateTimeString(dateString: string, username: string) {
     const userObj = getUserbyUsername(username);
     // true for 12-hour format, false for 24-hour format
     let userTimeSetting =
-      userObj.setting['12hr'].trim() === 'checked' ? true : false;
+      userObj.setting.hr12.trim() === 'checked' ? true : false;
     if (is12HourFormat(dateString)) {
       if (userTimeSetting) {
         return dateString;
@@ -243,7 +253,7 @@ function getFormattedDatesArray(array, timePropertyName, username) {
 
 function addNewNotification(
   message: string,
-  emailIt: boolean,
+  success: boolean,
   username: string,
 ) {
   const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
@@ -251,11 +261,14 @@ function addNewNotification(
   const notification = {
     message,
     timestamp: new Date().toLocaleString(),
-    isEmailed: emailIt ? 'green' : 'red',
+    isPositive: success ? 'green' : 'red',
   };
   readUser.notifications.push(notification);
   overwriteFile(readUser, username);
-  if (emailIt) {
+  const emailIt = readUser.setting.allowEmail === 'checked' ? true : false;
+  // Email credentials need to be set inside .env
+  // if (emailIt) {
+  if (false) {
     const nodemailer = require('nodemailer');
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,

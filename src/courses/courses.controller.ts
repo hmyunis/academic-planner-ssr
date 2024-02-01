@@ -116,7 +116,7 @@ function overwriteFile(newUserObj, username: string) {
 
 function addNewNotification(
   message: string,
-  emailIt: boolean,
+  success: boolean,
   username: string,
 ) {
   const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
@@ -124,11 +124,14 @@ function addNewNotification(
   const notification = {
     message,
     timestamp: new Date().toLocaleString(),
-    isEmailed: emailIt ? 'green' : 'red',
+    isPositive: success ? 'green' : 'red',
   };
   readUser.notifications.push(notification);
   overwriteFile(readUser, username);
-  if (emailIt) {
+  const emailIt = readUser.setting.allowEmail === 'checked' ? true : false;
+  // Email credentials need to be set inside .env
+  // if (emailIt) {
+  if (false) {
     const nodemailer = require('nodemailer');
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,

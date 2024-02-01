@@ -1,0 +1,144 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Customization</title>
+    <script src='https://cdn.tailwindcss.com'></script>
+    <link rel='stylesheet' href='/css/newCourseInputField.css' />
+    <link rel='stylesheet' href='/css/toggleSwitch.css' />
+    <script src='https://kit.fontawesome.com/fe3d3f96be.js'></script>
+  </head>
+  <body class='bg-[#272B34] text-white p-5'>
+    <form method='post' action='/customize/{{username}}'>
+      <div class='mx-auto text-center' id='app-logo'>
+        <figure>
+          <i
+            class='fa-solid fa-school block text-3xl'
+            style='color: #1efe80'
+          ></i>
+          <figcaption class='font-mono text-xl'>Academic Planner</figcaption>
+        </figure>
+      </div>
+      <hr class='border-[#1EFE80] mx-16 my-5' />
+      <hgroup class='text-center'>
+        <h1 class='text-4xl text-[#1EFE80] font-bold'>Customize your account</h1>
+        <p class='text-xl'>Organize your classes, assignments and exams for free</p>
+      </hgroup>
+      <div class='mx-16'>
+        <h2 class='text-[#1EFE80] text-2xl'>General Details</h2>
+        <hr class='border-[#1EFE80] mb-5' />
+      </div>
+      <section id='general-details' class='grid grid-cols-2'>
+        <div class='flex items-center justify-center my-5'>
+          <div class='relative'>
+            <input
+              id='fullName'
+              name='fullName'
+              type='text'
+              autofocus
+              class='border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit'
+            />
+            <label
+              for='fullName'
+              class='absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]'
+            >Full Name</label>
+          </div>
+        </div>
+        <div class='flex items-center justify-center my-5'>
+          <div class='relative'>
+            <input
+              id='schoolName'
+              name='schoolName'
+              type='text'
+              class='border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit'
+            />
+            <label
+              for='schoolName'
+              class='absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]'
+            >School Name</label>
+          </div>
+        </div>
+        <div class='flex items-center justify-center my-5'>
+          <div class='relative'>
+            <input
+              id='major'
+              name='major'
+              type='text'
+              class='border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit'
+            />
+            <label
+              for='major'
+              class='absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]'
+            >Major / Field of Study</label>
+          </div>
+        </div>
+        <div class='flex items-center justify-center my-5'>
+          <div class='relative'>
+            <input
+              id='academicYear'
+              name='academicYear'
+              type='text'
+              class='border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit'
+            />
+            <label
+              for='academicYearAndSemester'
+              class='absolute left-0 cursor-text peer-focus:text-xs -top-4 transition-all peer-focus:text-[#1EFE80]'
+            >Academic Year &amp; Semester</label>
+          </div>
+        </div>
+      </section>
+      <div class='mx-16'>
+        <h2 class='text-[#1EFE80] text-2xl'>Setting</h2>
+        <hr class='border-[#1EFE80] mb-5' />
+      </div>
+      <section id='setting' class='mx-16 w-fit grid grid-cols-1 gap-4'>
+        <div class='flex justify-between'>
+          <p class='text-3xl mr-36'>12hr Time Format:</p>
+          <label class='toggle-switch'>
+            <input type='checkbox' id='time-format' value="checked" checked />
+            <div class='toggle-switch-background'>
+              <div class='toggle-switch-handle'></div>
+            </div>
+          </label>
+        </div>
+        <div class='flex justify-between'>
+          <p class='text-3xl mr-36'>Enable notifications:</p>
+          <label class='toggle-switch'>
+            <input
+              type='checkbox'
+              id='enableNotification'
+              name='enableNotifications'
+              value="checked"
+              checked
+            />
+            <div class='toggle-switch-background'>
+              <div class='toggle-switch-handle'></div>
+            </div>
+          </label>
+        </div>
+        <div class='flex justify-between'>
+          <p class='text-3xl mr-36'>Enable email notifications:</p>
+          <label class='toggle-switch'>
+            <input type='checkbox' name='allowEmail' value="checked" id='allowEmail' />
+            <div class='toggle-switch-background'>
+              <div class='toggle-switch-handle'></div>
+            </div>
+          </label>
+        </div>
+      </section>
+      <div id='buttons' class='ml-auto -mt-2 w-fit'>
+        <button
+          class='h-fit self-center text-black bg-blue-400 px-4 py-2 text-xl font-semibold rounded-3xl mx-3 hover:bg-blue-600 hover:text-slate-100 hover:scale-110 transition-all'
+        >
+          <a href='/dashboard/{{username}}'>Skip for now</a>
+        </button>
+        <button
+          type='submit'
+          class='h-fit self-center text-black bg-green-400 px-4 py-2 text-xl font-semibold rounded-3xl mx-3 hover:bg-green-600 hover:text-slate-100 hover:scale-110 transition-all'
+        >
+          Create account
+        </button>
+      </div>
+    </form>
+  </body>
+</html>

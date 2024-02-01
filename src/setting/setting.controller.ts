@@ -9,7 +9,7 @@ export class SettingController {
     const user = getUserbyUsername(username);
     return {
       username,
-      timeFormat12: user.setting['12hr'],
+      timeFormat12: user.setting.hr12,
       enableNotification: user.setting.enableNotifications,
     };
   }
@@ -25,7 +25,7 @@ export class SettingController {
   @Render('settingPage')
   updateSetting(@Body() body, @Param('username') username) {
     const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
-    readUser.setting['12hr'] = body['12hr'] ?? '';
+    readUser.setting.hr12 = body.hr12 ?? '';
     readUser.setting.enableNotifications = body.enableNotifications ?? '';
     overwriteFile(readUser, username);
     addNewNotification(
@@ -36,7 +36,7 @@ export class SettingController {
     const user = getUserbyUsername(username);
     return {
       username,
-      timeFormat12: user.setting['12hr'],
+      timeFormat12: user.setting.hr12,
       enableNotification: user.setting.enableNotifications,
     };
   }
@@ -49,6 +49,7 @@ export class SettingController {
     readJson.splice(getUserIndex(username), 1);
     const jsonString = JSON.stringify(readJson, null, 2);
     fs.writeFileSync(process.env.FILE_PATH, jsonString);
+    renameUserIds();
   }
 }
 
@@ -105,7 +106,7 @@ function getUserIndex(username: string) {
 
 function addNewNotification(
   message: string,
-  emailIt: boolean,
+  success: boolean,
   username: string,
 ) {
   const readUser = JSON.parse(JSON.stringify(getUserbyUsername(username)));
@@ -113,11 +114,14 @@ function addNewNotification(
   const notification = {
     message,
     timestamp: new Date().toLocaleString(),
-    isEmailed: emailIt ? 'green' : 'red',
+    isPositive: success ? 'green' : 'red',
   };
   readUser.notifications.push(notification);
   overwriteFile(readUser, username);
-  if (emailIt) {
+  const emailIt = readUser.setting.allowEmail === 'checked' ? true : false;
+  // Email credentials need to be set inside .env
+  // if (emailIt) {
+  if (false) {
     const nodemailer = require('nodemailer');
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
@@ -140,5 +144,26 @@ function addNewNotification(
         console.log('Email sent:', info.response);
       }
     });
+  }
+}
+
+function renameUserIds() {
+  try {
+    const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
+    const readJson = JSON.parse(data);
+    let transformedArray = readJson.map((obj, index) => {
+      let newObj = {};
+      Object.keys(obj).forEach((key) => {
+        newObj[`user_${index + 1}`] = obj[key];
+      });
+      Object.keys(obj).forEach((key) => {
+        delete obj[key];
+      });
+      return newObj;
+    });
+    const jsonString = JSON.stringify(transformedArray, null, 2);
+    fs.writeFileSync(process.env.FILE_PATH, jsonString);
+  } catch (error) {
+    console.error('Error reading or parsing file:', error);
   }
 }

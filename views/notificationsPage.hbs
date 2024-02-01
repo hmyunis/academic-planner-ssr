@@ -13,7 +13,7 @@
             <div class="text-center py-5" id="avatar-box">
                 <figure class="hover:translate-y-2 transition-all cursor-pointer">
                     <a href=""><i class="fa-solid fa-circle-user text-6xl"></i></a>
-                    <figcaption>{{username}}</figcaption>
+                    <figcaption id="username-value">{{username}}</figcaption>
                 </figure>
             </div>
             <nav>
@@ -34,6 +34,11 @@
         </aside>
         <main class="bg-[#272B34] w-5/6 min-h-screen p-10">
             <hgroup class="relative">
+                <button
+                    onclick="displayClearConfirmation(document.getElementById('username-value').textContent)"
+                    class="absolute top-3 right-3 border border-red-500 text-red-500 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-red-500 hover:text-black hover:scale-125 transition-all duration-500">
+                    Clear all
+                </button>
                 <h1 class="text-[#1EFE80] text-5xl">Notification</h1>
                 <p class="my-3">You have <span class="text-yellow-300 text-4xl mx-2">{{numberOfNotifications}}</span> notifications.</p>
             </hgroup>
@@ -42,7 +47,7 @@
                 <div class="flex flex-col my-2" id="list-of-notifications">
                     {{#each arrayOfNotifications}}
                     <div class="bg-[#21242C] rounded-2xl p-3 w-4/5 flex m-2 hover:-translate-y-1 transition-all duration-300 active:bg-slate-900">
-                        <p class="h-full w-fit"><i class="fa-solid fa-circle" style="color: {{this.isEmailed}};"></i></p>
+                        <p class="h-full w-fit"><i class="fa-solid fa-circle" style="color: {{this.isPositive}};"></i></p>
                         <div class="w-full px-3">
                             <h4 class="flex justify-between">{{this.message}}<a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a></i></h4>
                             <h5 class="text-slate-400">{{this.timestamp}}</h5>
@@ -53,5 +58,21 @@
             </section>
         </main>
     </div>
+    <script>
+        const username = document.getElementById('username-value').textContent;
+        function displayClearConfirmation(username){
+            const modalHTML = 
+            `
+            <div id="clear-confirmation-modal" class="fixed z-20 p-5 top-[50%] left-[50%] max-md:w-[95vw] translate-x-[-50%] translate-y-[-45%] h-[25vh] w-[50vw] rounded-xl shadow-2xl bg-slate-700">
+                <h1 class="text-center font-semibold leading-loose text-red-400 text-xl">Do you want to permanently clear your notification log?</h1>
+                <div class="flex gap-8 my-5 w-full justify-center items-center">
+                    <button class="border-2 rounded-full px-16 py-1 text-3xl block hover:bg-red-400 hover:text-slate-700 font-semibold"><a href="/notification/${username}/clear">Yes</a></button>
+                    <button class="border-2 rounded-full px-16 py-1 text-3xl block hover:bg-[#1EFE80] hover:text-slate-700 font-semibold" onclick="document.getElementById('clear-confirmation-modal').remove()">No</button>
+                </div>
+            </div>
+            `;
+            document.querySelector('main').insertAdjacentHTML('afterbegin', modalHTML);
+        }
+    </script>
 </body>
 </html>
