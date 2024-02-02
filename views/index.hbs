@@ -1,112 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Academic Planner</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://kit.fontawesome.com/fe3d3f96be.js"></script>
-    </head>
-    <body class="text-white">
-        <header class="fixed w-full top-0 bg-slate-700 header">
-            <div class="flex justify-between items-center my-0 mx-4 h-[10vh]">
-                <a class="block text-3xl font-mono" href="#"
-                    ><i
-                        class="fa-solid fa-school text-4xl hover:scale-110 transition-all mx-2"
-                        style="color: #1efe80"
-                    ></i
-                    >Academic Planner</a
-                >
-                <nav class="max-md:hidden">
-                    <ul class="flex gap-8">
-                        <li class="text-green-200">
-                            <a
-                                class="hover:text-xl hover:text-[#1EFE80] transition-all duration-300"
-                                href="#intro"
-                                >Intro</a
-                            >
-                        </li>
-                        <li class="text-green-200">
-                            <a
-                                class="hover:text-xl hover:text-[#1EFE80] transition-all duration-300"
-                                href="#features"
-                                >Features</a
-                            >
-                        </li>
-                        <li class="text-green-200">
-                            <a
-                                class="hover:text-xl hover:text-[#1EFE80] transition-all duration-300"
-                                href="#pricing"
-                                >Pricing</a
-                            >
-                        </li>
-                        <li class="text-green-200">
-                            <a
-                                class="hover:text-xl hover:text-[#1EFE80] transition-all duration-300"
-                                href="#contact"
-                                >Contact</a
-                            >
-                        </li>
-                        <li class="text-green-200">
-                            <a
-                                class="rounded-3xl px-4 py-2 bg-[#1EFE80] text-black font-semibold hover:shadow-inner hover:shadow-white hover:text-xl hover:bg-green-300 transition-all"
-                                href="/signin"
-                                >Sign In</a
-                            >
-                        </li>
-                    </ul>
-                </nav>
-                <i class="hidden max-md:block text-3xl fa-solid fa-list" style="color: white"></i>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academic Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/fe3d3f96be.js"></script>
+  </head>
+  <body class="text-white">
+    <header class="fixed w-full top-0 bg-slate-700 header">
+      <div class="flex justify-between items-center my-0 mx-4 h-[10vh]">
+        <a class="block text-3xl font-mono" href="/"
+          ><i
+            class="fa-solid fa-school text-4xl hover:scale-110 transition-all mx-2"
+            style="color: #1efe80"
+          ></i
+          >Academic Planner</a
+        >
+        <nav class="max-md:hidden">
+          <ul class="flex gap-8">
+            <li class="text-green-200">
+              <a
+                class="hover:text-xl hover:text-[#1EFE80] transition-all duration-300"
+                href="#intro"
+                >Intro</a
+              >
+            </li>
+            <li class="text-green-200">
+              <a
+                class="hover:text-xl hover:text-[#1EFE80] transition-all duration-300"
+                href="#features"
+                >Features</a
+              >
+            </li>
+            <li class="text-green-200">
+              <a
+                class="hover:text-xl hover:text-[#1EFE80] transition-all duration-300"
+                href="#about"
+                >About</a
+              >
+            </li>
+            <li class="text-green-200">
+              <a
+                class="hover:text-xl hover:text-[#1EFE80] transition-all duration-300"
+                href="#contact"
+                >Contact</a
+              >
+            </li>
+
+            <li class="text-green-200">
+              <a
+                class="rounded-3xl px-4 py-2 bg-[#1EFE80] text-black font-semibold hover:shadow-inner hover:shadow-white hover:text-xl hover:bg-green-300 transition-all"
+                href="/signin"
+                >Sign In</a
+              >
+            </li>
+
+            <li class="text-green-200">
+              <a
+                class="rounded-3xl px-4 py-2 bg-blue-400 text-black font-semibold hover:shadow-inner hover:shadow-white hover:text-xl hover:bg-blue-300 transition-all"
+                href="/signup"
+                >Sign up</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <i
+          class="hidden max-md:block text-3xl fa-solid fa-list"
+          style="color: white"
+        ></i>
+      </div>
+      <!-- Mobile Menu -->
+      <ul class="hidden header__nav--mobile">
+        <li class="p-4 hover:bg-[#1EFE80]">
+          <a class="text-eleven" href="#intro">Intro</a>
+        </li>
+        <li class="p-4 hover:bg-[#1EFE80]">
+          <a href="#features">Features</a>
+        </li>
+        <li class="p-4 hover:bg-[#1EFE80]">
+          <a href="#about">About</a>
+        </li>
+        <li class="p-4 hover:bg-[#1EFE80]">
+          <a href="#contact">Contact</a>
+        </li>
+      </ul>
+    </header>
+    <main class="min-h-screen bg-[#21242C]">
+      <section
+        id="intro"
+        class="bg-[url('/images/bg.svg')] bg-no-repeat bg-center bg-fixed bg-cover h-screen flex flex-col gap-8 text-center justify-center items-center"
+      >
+      <div class="text-center -mt-10">
+        <figure>
+          <a class="block"
+            ><i class="fa-solid fa-school text-6xl" style="color: #1efe80"></i
+          ></a>
+          <figcaption class="font-mono font-bold text-3xl">
+            Academic Planner
+          </figcaption>
+        </figure>
+      </div>
+        <h2 class="text-4xl w-2/3 font-semibold">
+          Organize and monitor your academic tasks with ease embodying extra
+          simplicity!
+        </h2>
+        <a
+          href="/signup"
+          class="text-2xl rounded-full px-8 py-4 bg-blue-400 text-black font-semibold hover:shadow-inner hover:shadow-white hover:text-xl hover:bg-blue-700 transition-all"
+          >Get Started</a
+        >
+      </section>
+      <section
+        id="features"
+        class="min-h-screen bg-[url('/images/features_bg.svg')] flex flex-col border-y border-green-300 bg-no-repeat bg-center bg-fixed bg-cover"
+      >
+        <div class="flex justify-center items-center gap-40 my-16">
+          <div class="text-left w-1/3">
+            <h1 class="text-6xl font-semibold text-[#1EFE80]">Stay on Top of Your Tasks!</h1>
+            <p class="text-xl">Never miss a deadline again! Effortlessly add tasks, assignments, and important tasks with just a few taps. Our user-friendly interface makes it a breeze to input and manage your daily, weekly, and monthly tasks. Stay organized, stay ahead!</p>
+          </div>
+          <div class="">
+            <img class="w-full" src="/images/tablet.png" alt="Laptop mock">
+          </div>
+        </div>
+        <div class="flex justify-center items-center gap-40 my-16">
+          <div class="text-left w-1/3">
+            <h1 class="text-5xl font-semibold text-[#1EFE80]">Your Academic Universe, All in One Place!</h1>
+            <p class="text-xl">Seamlessly add and organize your courses for a stress-free academic journey. Whether it's lectures, labs, or seminars, our app lets you effortlessly manage your course load. Say goodbye to confusion and hello to streamlined planning!</p>
+          </div>
+          <div class="-order-1">
+            <img class="w-full" src="/images/courses.png" alt="Laptop mock">
+          </div>
+        </div>
+        <div class="flex justify-center items-center gap-40 my-16">
+          <div class="text-left w-1/3">
+            <h1 class="text-5xl font-semibold text-[#1EFE80]">Meet the Personal Academic Assistant!</h1>
+            <p class="text-xl">Let our app be your reliable study buddy! Receive timely notifications for upcoming assignments, exams, and important events. Our intelligent notification system ensures you're always aware, helping you conquer deadlines like a pro!</p>
+          </div>
+          <div class="">
+            <img class="w-full" src="/images/notification.png" alt="Laptop mock">
+          </div>
+        </div>
+        <div class="flex justify-center items-center gap-40 my-16">
+          <div class="text-left w-1/3">
+            <h1 class="text-5xl font-semibold text-[#1EFE80]">Tailor Your Academic Experience!</h1>
+            <p class="text-xl">Your academic journey, your rules! Customize your app settings to match your unique preferences. From setting priority levels for tasks to choosing your preferred notification style, our app adapts to your needs, ensuring a personalized planning experience!</p>
+          </div>
+          <div class="-order-1">
+            <img class="w-full" src="/images/setting.png" alt="Laptop mock">
+          </div>
+        </div>
+      </section>
+      <section
+        id="about"
+        class="min-h-screen p-16 bg-[url('/images/features_bg.svg')] flex flex-col border-y border-green-300 bg-no-repeat bg-center bg-fixed bg-cover"
+      >
+      <div
+        class="bg-slate-800 rounded-3xl p-10"
+      >
+        <h1 class="text-5xl text-[#1EFE80] text-left">About</h1>
+        <hgroup>
+          <h2 class="text-2xl text-[#1EFE80] font-semibold mt-5">Welcome to Academic Planner - Your Ultimate Academic Companion!</h2>
+          <p>At Academic Planner, we believe that success in academia starts with effective planning. We understand the challenges students face in managing tasks, assignments, and courses, and we're here to simplify your academic journey.</p>
+        </hgroup>
+        <hgroup>
+          <h2 class="text-2xl text-[#1EFE80] font-semibold mt-5">Our Mission</h2>
+          <p>Our mission is simple: empower students to thrive in their academic pursuits by providing them with a comprehensive, intuitive, and personalized planning tool. We believe that a well-organized approach to studying leads to better focus, increased productivity, and ultimately, success.</p>
+        </hgroup>
+        <hgroup>
+          <h2 class="text-2xl text-[#1EFE80] font-semibold mt-5">What Sets Us Apart</h2>
+          <section>
+            <h3 class="font-semibold text-xl text-slate-400 mt-5">User-Friendly Interface</h3>
+            <p>Navigating through your academic life has never been easier. Academic Planner's user-friendly interface ensures that you can effortlessly add, manage, and organize tasks and courses with just a few clicks.</p>
+          </section>
+          <section>
+            <h3 class="font-semibold text-xl text-slate-400 mt-5">Smart Notifications</h3>
+            <p>Say goodbye to missed deadlines! Academic Planner's smart notification system keeps you on track by sending timely reminders for assignments, exams, and other important events.</p>
+          </section>
+          <section>
+            <h3 class="font-semibold text-xl text-slate-400 mt-5">Customization at your Fingertips</h3>
+            <p>We understand that every student is unique. That's why Academic Planner allows you to customize settings to match your preferences. Tailor your academic planning experience to suit your individual needs.</p>
+          </section>
+        </hgroup>
+        <hgroup>
+          <h2 class="text-2xl text-[#1EFE80] font-semibold mt-5">How It Works</h2>
+          <p class="mt-3">
+            1. <span class="text-[#1EFE80] font-semibold">Registration: </span>Sign up for Academic Planner with a few simple steps. All we need is basic information to get you started.
+        </p>
+        <p class="mt-3">
+            2. <span class="text-[#1EFE80] font-semibold">Create Your Courses: </span>Add your courses, specifying details such as course name, professor, and schedule. Academic Planner allows you to have an organized overview of your academic commitments.
+        </p>
+        <p class="mt-3">
+            3. <span class="text-[#1EFE80] font-semibold">Task Management: </span>Begin creating tasks related to your courses. Set due dates, categorize tasks, and track your progress effortlessly.
+        </p>
+        <p class="mt-3">
+            4. <span class="text-[#1EFE80] font-semibold">Stay Informed With Notifications: </span>Receive timely notifications about upcoming tasks, exams, or any changes in your course schedule. Our notification system is designed to keep you informed without overwhelming you.
+        </p>
+        <p class="mt-3">
+            5. <span class="text-[#1EFE80] font-semibold">Privacy is a Priority: </span>Rest easy knowing that your academic data is secure within Academic Planner. We do not share or integrate with external services, putting your privacy first.
+        </p>
+        </hgroup>
+        <hgroup>
+          <h2 class="text-2xl text-[#1EFE80] font-semibold mt-5">Join Academic Planner Today</h2>
+          <p>Embark on a journey to academic excellence with Academic Planner. Sign up now and experience a new level of organization, productivity, and success in your studies.</p>
+          <p>Your success story begins here!</p>
+          <a
+          href="/signup"
+          class="text-2xl rounded-full px-8 py-4 bg-blue-400 text-black font-semibold hover:shadow-inner hover:shadow-white hover:text-xl hover:bg-blue-700 transition-all block w-fit my-3"
+          >Get Started</a
+        >
+        </hgroup>
+      </div>
+      </section>
+      <footer id="contact" class="bg-two text-center text-seven" id="connect-directly">
+        <div class="p-4 shadow-md shadow-one flex flex-col gap-4">
+          <figure>
+            <a class="block"
+              ><i class="fa-solid fa-school text-3xl" style="color: #1efe80"></i
+            ></a>
+            <figcaption class="font-mono font-bold">
+              Academic Planner
+            </figcaption>
+          </figure>
+            <address class="flex flex-wrap justify-center gap-8 max-md:flex-col max-md:gap-0 max-md:items-center">
+                <p class="text-six max-md:w-full">
+                    <i class="fa-solid fa-phone"></i>
+                    <a class="hover:text-xl transition-all">+251 912 345 678</a>
+                </p>
+                <p class="text-six max-md:w-full">
+                    <i class="fa-solid fa-envelope"></i>
+                    <a class="hover:text-xl transition-all" href="mailto:academic@planner.com"
+                        >academic@planner.com</a
+                    >
+                </p>
+                <p class="text-six max-md:w-full">
+                    <i class="fa-solid fa-location"></i>
+                    <a
+                        class="hover:text-xl transition-all"
+                        href="https://maps.app.goo.gl/XnbEU1CXgs9zGk3y7"
+                        >5kilo AAiT, Addis Ababa</a
+                    >
+                </p>
+            </address>
+
+            <div class="flex justify-between">
+                <p>
+                    &copy; 2023
+                    <a href="#" class="text-[#1efe80]">Academic Planner</a>
+                    | All Rights Reserved
+                </p>
+                <div class="flex gap-4 max-md:hidden">
+                    <a><i class="hover:scale-125 fa-brands fa-github"></i></a>
+                    <a><i class="hover:scale-125 fa-brands fa-telegram"></i></a>
+                    <a><i class="hover:scale-125 fa-brands fa-linkedin"></i></a>
+                    <a href="#">🔼</a>
+                </div>
             </div>
-            <!-- Mobile Menu -->
-            <ul class="hidden header__nav--mobile">
-                <li class="p-4 hover:bg-[#1EFE80]">
-                    <a class="text-eleven" href="#intro">Intro</a>
-                </li>
-                <li class="p-4 hover:bg-[#1EFE80]">
-                    <a href="#features">Features</a>
-                </li>
-                <li class="p-4 hover:bg-[#1EFE80]">
-                    <a href="#pricing">Pricing</a>
-                </li>
-                <li class="p-4 hover:bg-[#1EFE80]">
-                    <a href="#contact">Contact</a>
-                </li>
-            </ul>
-        </header>
-        <main class="min-h-screen bg-[#21242C]">
-            <section
-                id="intro"
-                class="h-screen flex flex-col gap-8 text-center justify-center items-center"
-            >
-                <h2 class="text-4xl w-2/3">
-                    Organize and monitor your academic tasks with ease embodying extra simplicity!
-                </h2>
-                <a
-                    href="/signup"
-                    class="text-2xl rounded-full px-8 py-4 bg-blue-400 text-black font-semibold hover:shadow-inner hover:shadow-white hover:text-xl hover:bg-blue-700 transition-all"
-                    >Get Started</a
-                >
-            </section>
-            <section
-                id="features"
-                class="h-screen bg-slate-600 flex flex-col gap-8 text-center justify-center items-center"
-            >
-                <h1 class="text-6xl">Features</h1>
-            </section>
-            <section
-                id="pricing"
-                class="h-screen bg-slate-700 flex flex-col gap-8 text-center justify-center items-center"
-            >
-                <h1 class="text-6xl">Pricing</h1>
-            </section>
-            <section
-                id="contact"
-                class="h-screen bg-slate-800 flex flex-col gap-8 text-center justify-center items-center"
-            >
-                <h1 class="text-6xl">Contact</h1>
-            </section>
-        </main>
-        <footer></footer>
-    </body>
+        </div>
+    </footer>
+    </main>
+  </body>
 </html>

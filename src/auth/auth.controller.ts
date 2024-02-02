@@ -42,7 +42,8 @@ export class AuthController {
     if (
       body.password !== body.confirmPassword ||
       emailExists(body.email.trim()) ||
-      usernameExists(body.username)
+      usernameExists(body.username) ||
+      !body.email.includes('.')
     ) {
       res.render('modals/signupFail', {
         imposter: body.username,

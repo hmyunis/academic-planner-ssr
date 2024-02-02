@@ -1,0 +1,267 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Grade Analytics</title>
+    <script src='https://cdn.tailwindcss.com'></script>
+    <link rel='stylesheet' href='/css/toggleSwitch.css' />
+    <link rel='stylesheet' href='/css/newCourseInputField.css' />
+    <script src='https://kit.fontawesome.com/fe3d3f96be.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+  </head>
+  <body>
+    <div class='flex text-white'>
+      <aside class='bg-[#21242C] w-1/6 min-h-screen flex flex-col'>
+        <div class='text-center py-5' id='avatar-box'>
+          <figure class='hover:translate-y-2 transition-all cursor-pointer'>
+            <a href=''><i class='fa-solid fa-circle-user text-6xl'></i></a>
+            <br />
+            <figcaption id='icon'></figcaption>
+          </figure>
+        </div>
+        <nav>
+          <ul class='flex flex-col text-2xl'>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            >
+              <i
+                class='fa-solid fa-table-cells text-2xl mr-3 w-8'
+                style='color: #1efe80'
+              ></i><a href='/dashboard/{{username}}'>Dashboard</a>
+            </li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            >
+              <i
+                class='fa-solid fa-book text-2xl mr-3 w-8'
+                style='color: #1efe80'
+              ></i><a href='/courses/{{username}}'>Courses</a>
+            </li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            >
+              <i
+                class='fa-solid fa-calendar-day text-2xl mr-3 w-8'
+                style='color: #1efe80'
+              ></i><a href='/calendar/{{username}}'>Calendar</a>
+            </li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all text-[#1EFE80] border-r-4 border-[#1EFE80]'
+            >
+              <i
+                class='fa-solid fa-list text-2xl mr-3 w-8'
+                style='color: #1efe80'
+              ></i>Gradebook
+            </li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            >
+              <i
+                class='fa-solid fa-bell text-2xl mr-3 w-8'
+                style='color: #1efe80'
+              ></i><a href='/notification/{{username}}'>Notification</a>
+            </li>
+            <li
+              class='p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all'
+            >
+              <i
+                class='fa-solid fa-gear text-2xl mr-3 w-8'
+                style='color: #1efe80'
+              ></i><a href='/setting/{{username}}'>Setting</a>
+            </li>
+          </ul>
+        </nav>
+        <div class='text-center mt-auto' id='app-logo'>
+          <figure>
+            <a class='block' href='/'><i
+                class='fa-solid fa-school text-4xl'
+                style='color: #1efe80'
+              ></i></a>
+            <figcaption class='font-mono font-bold'>
+              Academic Planner
+            </figcaption>
+          </figure>
+        </div>
+      </aside>
+      <main class='bg-[#272B34] w-5/6 min-h-screen p-10 relative'>
+        <div id='result-board' class='bg-slate-300 rounded-xl h-[40vh]'>
+          <canvas id='myBarChart' width='400' height='100'></canvas>
+        </div>
+        <div
+          class='w-fit h-fit font-semibold text-2xl ml-auto bg-slate-900'
+        >GPA: <span id='gpa-result' class='text-[#1EFE80]'>-.--</span></div>
+        <div>
+          <div>
+            <h2 class='text-[#1EFE80] text-2xl'>List of Courses</h2>
+            <hr class='border-[#1EFE80]' />
+          </div>
+          <div id='courses-container' class='flex flex-wrap'>
+            <div class='m-5' id='course-1'>
+              <h3 class='text-[#1EFE80] text-2xl'>Course #1</h3>
+              <input
+                id='course-1-score'
+                required
+                type='number'
+                class='input-bar h-8 m-2'
+                placeholder='Score out of 100'
+              />
+              <input
+                id='course-1-ects'
+                required
+                type='number'
+                pattern='[0-9]*'
+                maxlength='1'
+                class='input-bar w-24 h-8 m-2'
+                placeholder='ECTS'
+              />
+            </div>
+            <div class='m-5' id='course-2'>
+              <h3 class='text-[#1EFE80] text-2xl'>Course #2</h3>
+              <input
+                id='course-2-score'
+                required
+                type='number'
+                class='input-bar h-8 m-2'
+                placeholder='Score out of 100'
+              />
+              <input
+                id='course-2-ects'
+                required
+                type='number'
+                pattern='[0-9]*'
+                maxlength='1'
+                class='input-bar w-24 h-8 m-2'
+                placeholder='ECTS'
+              />
+            </div>
+          </div>
+          <button
+            onclick='addNewCourse()'
+            class='h-fit ml-5 text-black bg-green-400 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-green-600 hover:scale-110 transition-all'
+          >
+            + Add course
+          </button>
+          <button
+            class='h-fit ml-5 text-black bg-red-400 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-red-600 hover:scale-110 transition-all'
+          >
+            <a href='/gradebook/{{username}}'>Reset</a>
+          </button>
+          <button
+            onclick='generateReport()'
+            class='h-fit block mt-10 ml-auto text-black bg-indigo-400 px-4 py-2 text-xl font-semibold rounded-3xl hover:bg-indigo-600 hover:scale-110 transition-all'
+          >
+            Generate Report
+          </button>
+        </div>
+      </main>
+    </div>
+    <script>
+      let coursesOnScreenCounter = 2;
+      function addNewCourse() {
+          const newComponentNumber = coursesOnScreenCounter + 1;
+          const courseComponentHTML = `
+          <div class="m-5" id="course-${newComponentNumber}">
+              <h3 class="text-[#1EFE80] text-2xl">Course #${newComponentNumber}</h3>
+              <input id="course-${newComponentNumber}-score" required type="number" class="input-bar h-8 m-2" placeholder="Score out of 100">
+              <input id="course-${newComponentNumber}-ects" required type="number" pattern="[0-9]*" maxlength="1" class="input-bar w-24 h-8 m-2" placeholder="ECTS">
+          </div>
+          `;
+          document
+              .getElementById('courses-container')
+              .insertAdjacentHTML('beforeend', courseComponentHTML);
+          coursesOnScreenCounter++;
+      }
+
+      function getScoreAndEctsObj() {
+          const scores = [];
+          const ECTS = [];
+          for (let i = 1; i <= coursesOnScreenCounter; i++) {
+              let score = document.getElementById(`course-${i}-score`).value;
+              scores.push(+score);
+              let ects = document.getElementById(`course-${i}-ects`).value;
+              ECTS.push(+score);
+          }
+          return { scoresArray: scores, ECTSArray: ECTS };
+      }
+
+      function getLabels() {
+          const labels = [];
+          for (let i = 1; i <= coursesOnScreenCounter; i++) {
+              labels.push(`Course ${i}`);
+          }
+          return labels;
+      }
+
+      function getGPA() {
+          let numerator = 0;
+          let totalECTS = 0;
+          for (let i = 0; i < coursesOnScreenCounter; i++) {
+              let temp = getDecimalGrade(getScoreAndEctsObj().scoresArray[i]) * getScoreAndEctsObj().ECTSArray[i];
+              numerator += temp;
+              totalECTS += getScoreAndEctsObj().ECTSArray[i];
+          }
+          const result = numerator / totalECTS;
+          return result.toFixed(2);
+      }
+
+      function getDecimalGrade(scoreOutOfHundred) {
+          if (scoreOutOfHundred >= 90 && scoreOutOfHundred <= 100) {
+              return 4.0;
+          } else if (scoreOutOfHundred >= 83 && scoreOutOfHundred <= 89) {
+              return 4.0;
+          } else if (scoreOutOfHundred >= 80 && scoreOutOfHundred <= 82) {
+              return 3.75;
+          } else if (scoreOutOfHundred >= 75 && scoreOutOfHundred <= 79) {
+              return 3.5;
+          } else if (scoreOutOfHundred >= 68 && scoreOutOfHundred <= 74) {
+              return 3.0;
+          } else if (scoreOutOfHundred >= 65 && scoreOutOfHundred <= 67) {
+              return 2.75;
+          } else if (scoreOutOfHundred >= 60 && scoreOutOfHundred <= 64) {
+              return 2.5;
+          } else if (scoreOutOfHundred >= 50 && scoreOutOfHundred <= 59) {
+              return 2.0;
+          } else if (scoreOutOfHundred >= 45 && scoreOutOfHundred <= 49) {
+              return 1.75;
+          } else if (scoreOutOfHundred >= 40 && scoreOutOfHundred <= 44) {
+              return 1.0;
+          } else if (scoreOutOfHundred >= 0 && scoreOutOfHundred <= 39) {
+              return 0.0;
+          } else {
+              return null;
+          }
+      }
+
+      function generateReport() {
+          location.href = '#'; // scroll to top
+          document.getElementById('result-board').classList.remove('hidden');
+          document.getElementById('gpa-result').innerHTML = getGPA();
+          let ctx = document.getElementById('myBarChart').getContext('2d');
+          let myBarChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: getLabels(),
+                  datasets: [
+                      {
+                          label: 'Course Score',
+                          data: getScoreAndEctsObj().scoresArray,
+                          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                          borderColor: 'rgba(75, 192, 192, 1)',
+                          borderWidth: 1,
+                      },
+                  ],
+              },
+              options: {
+                  scales: {
+                      y: {
+                          beginAtZero: true,
+                          max: 100,
+                      },
+                  },
+              },
+          });
+      }
+
+    </script>
+  </body>
+</html>

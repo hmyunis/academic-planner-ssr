@@ -84,6 +84,15 @@ export class UserController {
     };
   }
 
+  @Get('/gradebook/:username')
+  @Render('gradebookPage')
+  getGradebookPage(@Param('username') username) {
+    const user = getUserbyUsername(username);
+    return {
+      username,
+    };
+  }
+
   @Get('/notification/:username')
   getNotificationPage(@Param('username') username, @Res() res) {
     const user = getUserbyUsername(username);
