@@ -2,44 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 
 @Injectable()
-export class AuthService {
-  usernameExists(username: string) {
-    try {
-      const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
-      const readJson = JSON.parse(data);
-      for (let i = 0; i < Object.keys(readJson).length; i++) {
-        let accountDetail = readJson[i][`user_${i + 1}`].accountDetails;
-        if (accountDetail.username.trim() === username.trim()) {
-          return true;
-        }
-      }
-      return false;
-    } catch (error) {
-      console.error('Error reading or parsing file:', error);
-    }
-  }
-
-  emailExists(email) {
-    try {
-      const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
-      const readJson = JSON.parse(data);
-      for (let i = 0; i < Object.keys(readJson).length; i++) {
-        let accountDetail = readJson[i][`user_${i + 1}`].accountDetails;
-        if (accountDetail.email.trim() === email.trim()) {
-          return true;
-        }
-      }
-      return false;
-    } catch (error) {
-      console.error('Error reading or parsing file:', error);
-    }
-  }
-
-  getArrayOfTasks(username: string) {
-    const user = this.getUserbyUsername(username);
-    return user.tasks;
-  }
-
+export class SettingService {
   getUserbyUsername(username: string) {
     try {
       const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
@@ -51,16 +14,6 @@ export class AuthService {
         }
       }
       return null;
-    } catch (error) {
-      console.error('Error reading or parsing file:', error);
-    }
-  }
-
-  getNumberOfExistingUsers() {
-    try {
-      const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
-      const readJson = JSON.parse(data);
-      return readJson.length;
     } catch (error) {
       console.error('Error reading or parsing file:', error);
     }
@@ -82,6 +35,22 @@ export class AuthService {
       }
     } catch (error) {
       console.error('Error writing file:', error);
+    }
+  }
+
+  getUserIndex(username: string) {
+    try {
+      const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
+      const readJson = JSON.parse(data);
+      for (let i = 0; i < Object.keys(readJson).length; i++) {
+        let user = readJson[i][`user_${i + 1}`];
+        if (user.accountDetails.username.trim() === username.trim()) {
+          return i;
+        }
+      }
+      return null;
+    } catch (error) {
+      console.error('Error reading or parsing file:', error);
     }
   }
 
@@ -123,6 +92,27 @@ export class AuthService {
           console.log('Email sent:', info.response);
         }
       });
+    }
+  }
+
+  renameUserIds() {
+    try {
+      const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
+      const readJson = JSON.parse(data);
+      let transformedArray = readJson.map((obj, index) => {
+        let newObj = {};
+        Object.keys(obj).forEach((key) => {
+          newObj[`user_${index + 1}`] = obj[key];
+        });
+        Object.keys(obj).forEach((key) => {
+          delete obj[key];
+        });
+        return newObj;
+      });
+      const jsonString = JSON.stringify(transformedArray, null, 2);
+      fs.writeFileSync(process.env.FILE_PATH, jsonString);
+    } catch (error) {
+      console.error('Error reading or parsing file:', error);
     }
   }
 }

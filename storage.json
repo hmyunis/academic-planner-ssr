@@ -1,0 +1,23 @@
+[
+  {
+    "user_1": {
+      "accountDetails": {
+        "username": "Mihawk_san",
+        "email": "dracule.mihawk.eye.san@gmail.com",
+        "password": "12345678",
+        "fullName": "",
+        "schoolName": "",
+        "major": "",
+        "academicYear": ""
+      },
+      "tasks": [],
+      "courses": [],
+      "notifications": [],
+      "setting": {
+        "hr12": "checked",
+        "allowEmail": "",
+        "enableNotifications": "checked"
+      }
+    }
+  }
+]

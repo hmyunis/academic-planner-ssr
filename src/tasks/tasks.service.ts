@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 
 @Injectable()
-export class UserService {
+export class TasksService {
   getUserbyUsername(username: string) {
     try {
       const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
@@ -14,6 +14,22 @@ export class UserService {
         }
       }
       return null;
+    } catch (error) {
+      console.error('Error reading or parsing file:', error);
+    }
+  }
+
+  taskExists(taskName: string) {
+    try {
+      const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
+      const readJson = JSON.parse(data);
+      for (let i = 0; i < Object.keys(readJson).length; i++) {
+        let tasks = readJson[i][`user_${i + 1}`].tasks;
+        for (let i = 0; i < tasks.length; i++) {
+          if (tasks[i].taskName.trim() === taskName.trim()) return true;
+        }
+      }
+      return false;
     } catch (error) {
       console.error('Error reading or parsing file:', error);
     }
@@ -35,6 +51,26 @@ export class UserService {
       }
     } catch (error) {
       console.error('Error writing file:', error);
+    }
+  }
+
+  courseExists(courseCode: string, username: string) {
+    try {
+      const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');
+      const readJson = JSON.parse(data);
+      for (let i = 0; i < Object.keys(readJson).length; i++) {
+        const user = readJson[i][`user_${i + 1}`];
+        if (user.accountDetails.username.trim() === username.trim()) {
+          for (let j = 0; j < user.courses.length; j++) {
+            if (user.courses[j].courseCode.trim() === courseCode.trim()) {
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    } catch (error) {
+      console.error(error);
     }
   }
 
