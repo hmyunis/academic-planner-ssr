@@ -8,4 +8,4 @@
 5. Open any web browser on your machine, then search http://localhost:3000
 6. Enjoy.
 
-### Note: User data is stored plainly inside /views/user.json with no type of encryption or hashing.
+### Note: User data is stored plainly inside storage.json with no type of encryption or hashing.
