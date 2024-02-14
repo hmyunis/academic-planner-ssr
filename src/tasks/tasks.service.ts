@@ -58,6 +58,18 @@ export class TasksService {
     readUser.tasks[taskId].priority = currentPriority;
     this.overwriteFile(readUser, username);
   }
+  
+  editTask(taskId, task, username){
+    const readUser = this.getUserbyUsername(username);
+    readUser.tasks[taskId] = task;
+    this.overwriteFile(readUser, username);
+  }
+  
+  removeTask(taskId, username){
+    const readUser = this.getUserbyUsername(username);
+    readUser.tasks.splice(taskId, 1);
+    this.overwriteFile(readUser, username);
+  }
 
   overwriteFile(newUserObj, username: string) {
     try {

@@ -20,6 +20,7 @@ export class TasksController {
     @Param('username') username,
     @Query('promote') pTaskId,
     @Query('demote') dTaskId,
+    @Query('completed') cTaskId,
   ) {
     if (pTaskId) {
       const existingUser = this.tasksService.getUserbyUsername(username);
@@ -34,6 +35,13 @@ export class TasksController {
       this.tasksService.demoteTask(realTaskId, username);
       console.log(
         `Task number ${realTaskId + 1} has been demoted successfully.`,
+      );
+    } else if(cTaskId){
+      const existingUser = this.tasksService.getUserbyUsername(username);
+      const realTaskId = existingUser.tasks.length - 1 - dTaskId;
+      this.tasksService.removeTask(realTaskId, username);
+      console.log(
+        `Task number ${realTaskId + 1} has been removed successfully.`,
       );
     }
     const user = this.tasksService.getUserbyUsername(username);
@@ -90,5 +98,42 @@ export class TasksController {
         .getFormattedDatesArray(user.tasks, 'dueTime', username)
         .reverse(),
     };
+  }
+
+  @Get('/dashboard/:username/edit/:taskId')
+  @Render('modals/updateTask')
+  getUpdateTaskPage(@Param('username') username, @Param('taskId') taskId) {
+    const user = this.tasksService.getUserbyUsername(username);
+    const realTaskId = user.tasks.length - 1 - taskId;
+    const task = user.tasks[realTaskId];
+    const { taskName, courseCode, dueTime, description } = task;
+    return {
+      currentTime: new Date().toLocaleString(),
+      username,
+      taskId,
+      taskName,
+      courseCode,
+      dueTime,
+      description,
+      pendingTaskCount: user.tasks.length,
+      arrayOfTasks: this.tasksService
+        .getFormattedDatesArray(user.tasks, 'dueTime', username)
+        .reverse(),
+    };
+  }
+
+  @Post('/dashboard/:username/:taskId')
+  updateTask(
+    @Param('username') username,
+    @Param('taskId') taskId,
+    @Body() body,
+    @Res() res,
+  ) {
+    console.log('You made it to patch handler!');
+    console.log(body);
+    const user = this.tasksService.getUserbyUsername(username);
+    const realTaskId = user.tasks.length - 1 - taskId;
+    this.tasksService.editTask(realTaskId, body, username);
+    return res.redirect(`/dashboard/${username}`);
   }
 }

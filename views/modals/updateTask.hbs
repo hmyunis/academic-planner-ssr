@@ -35,15 +35,15 @@
                 </figure>
             </div>
         </aside>
-        <div id="new-task-modal" class="fixed z-10 p-10 top-[50%] left-[50%] max-md:w-[95vw] translate-x-[-50%] translate-y-[-45%] h-[80vh] w-[50vw] rounded-xl shadow-2xl bg-slate-700">
-            <i class="fixed fa-solid fa-close top-3 right-5 hover:scale-125 hover:cursor-pointer transition-all text-red-800 text-2xl" onclick="document.getElementById('new-task-modal').remove()"></i>
-            <h3 class="text-center text-4xl text-[#1EFE80]">Add new task</h3>
-            <form action="/dashboard/{{username}}/new" method="post" class="flex flex-col gap-8 my-5">
+        <div id="edit-task-modal" class="fixed z-10 p-10 top-[50%] left-[50%] max-md:w-[95vw] translate-x-[-50%] translate-y-[-45%] h-[80vh] w-[50vw] rounded-xl shadow-2xl bg-slate-700">
+            <i class="fixed fa-solid fa-close top-3 right-5 hover:scale-125 hover:cursor-pointer transition-all text-red-800 text-2xl" onclick="document.getElementById('edit-task-modal').remove()"></i>
+            <h3 class="text-center text-4xl text-[#1EFE80]">Edit task</h3>
+            <form action="/dashboard/{{username}}/{{taskId}}" method="post" class="flex flex-col gap-8 my-5">
                 <div class="relative">
                     <input required
                         id="taskName"
                         name="taskName"
-                        placeholder="e.g. Prepare a Figma design for the project"
+                        placeholder="{{taskName}}"
                         type="text"
                         class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
                     />
@@ -57,7 +57,7 @@
                     <input required
                         id="courseCode"
                         name="courseCode"
-                        placeholder="e.g. SECT-2111"
+                        placeholder="{{courseCode}}"
                         type="text"
                         class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
                     />
@@ -71,7 +71,7 @@
                     <input required
                         id="dueTime"
                         name="dueTime"
-                        placeholder="e.g. 1/31/2024, 12:00:00 AM"
+                        placeholder="{{dueTime}}"
                         type="text"
                         class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
                     />
@@ -95,23 +95,23 @@
                         <input type="radio" name="taskType" id="other" value="other">
                     </div>
                 </div>
-                <textarea class="bg-slate-600 p-1 rounded focus:outline-slate-700" placeholder="Description (optional)" rows="5" name="description" id="description"></textarea>
+                <textarea class="bg-slate-600 p-1 rounded focus:outline-slate-700" placeholder="{{description}}" rows="5" name="description" id="description"></textarea>
                 <div class="radio-input w-fit fixed bottom-0 left-0">
-                    <input required checked value="#1EFE80" name="priority" id="color-1" type="radio">
+                    <input required value="#1EFE80" name="priority" id="color-1" type="radio">
                     <label for="color-1">
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#ffffff" d="M6 12L10.2426 16.2426L18.727 7.75732" id="Vector"></path> </g> </g></svg>
                       </span>
                     </label>
                   
-                    <input required value="yellow" name="priority" id="color-2" type="radio">
+                    <input value="yellow" name="priority" id="color-2" type="radio">
                     <label for="color-2">
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#ffffff" d="M6 12L10.2426 16.2426L18.727 7.75732" id="Vector"></path> </g> </g></svg>
                       </span>
                     </label>
                   
-                    <input required value="red" name="priority" id="color-3" type="radio">
+                    <input value="red" name="priority" id="color-3" type="radio">
                     <label for="color-3">
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#ffffff" d="M6 12L10.2426 16.2426L18.727 7.75732" id="Vector"></path> </g> </g></svg>
@@ -121,7 +121,7 @@
                 <button
                     type="submit"
                     class="h-fit self-center text-black bg-blue-400 px-4 py-1 text-xl font-semibold rounded-3xl block ml-auto m-3 hover:bg-blue-600 hover:scale-110 transition-all">
-                    Add task
+                    Save changes
                 </button>
             </form>
         </div>
