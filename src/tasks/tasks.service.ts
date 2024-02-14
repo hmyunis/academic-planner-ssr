@@ -35,6 +35,30 @@ export class TasksService {
     }
   }
 
+  promoteTask(taskId, username) {
+    const readUser = this.getUserbyUsername(username);
+    let currentPriority = readUser.tasks[taskId].priority;
+    if (currentPriority === '#1EFE80') {
+      currentPriority = 'yellow';
+    } else if (currentPriority === 'yellow') {
+      currentPriority = 'red';
+    }
+    readUser.tasks[taskId].priority = currentPriority;
+    this.overwriteFile(readUser, username);
+  }
+
+  demoteTask(taskId, username) {
+    const readUser = this.getUserbyUsername(username);
+    let currentPriority = readUser.tasks[taskId].priority;
+    if (currentPriority === 'red') {
+      currentPriority = 'yellow';
+    } else if (currentPriority === 'yellow') {
+      currentPriority = '#1EFE80';
+    }
+    readUser.tasks[taskId].priority = currentPriority;
+    this.overwriteFile(readUser, username);
+  }
+
   overwriteFile(newUserObj, username: string) {
     try {
       const data = fs.readFileSync(process.env.FILE_PATH, 'utf-8');

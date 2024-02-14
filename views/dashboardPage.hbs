@@ -50,21 +50,20 @@
                     <div id="task-item-{{index}}" class="relative bg-[#21242C] rounded-2xl p-3 w-2/5 flex m-2" title="{{this.courseCode}}">
                         <p class="h-full w-fit"><i class="fa-solid fa-circle" style="color: {{this.priority}};"></i></p>
                         <div class="h-full w-full px-3">
-                            <h4 class="flex justify-between"><span class="text-2xl">{{this.taskName}}</span><span class="cursor-pointer" onmouseover="popupMenu({{index}})"><i class="fa-solid fa-ellipsis-vertical"></i></span></i></h4>
+                            <h4 class="flex justify-between"><span class="text-2xl">{{this.taskName}}</span><span class="cursor-pointer" onclick="popupMenu({{index}})"><i class="fa-solid fa-ellipsis-vertical"></i></span></i></h4>
                             <h5 class="text-[#1EFE80]">{{this.dueTime}}</h5>
                             <p class="text-sm">{{this.description}}</p>
                         </div>
-                        <div id="task-menu-{{index}}" class="hidden z-30 absolute -right-36 px-3 -top-28 bg-slate-900 rounded-t-xl rounded-br-xl">
+                        <div id="task-menu-{{index}}" class="hidden z-30 absolute -right-36 px-3 -top-28 bg-[#0f172a6e] rounded-t-xl rounded-br-xl">
                             <ul>
-                                <li class="hover:text-blue-400 p-1"><a href="/dashboard/{{username}}/edit?={{index}}"><i class="fa-solid fa-pencil"></i> Edit</a></li>
-                                <li class="hover:text-blue-400 p-1 border-y border-[#1efe7f50]"><a href="/dashboard/{{username}}/promote?={{index}}"><i class="fa-regular fa-circle-up text-[#1EFE80]"></i> Priority</a></li>
-                                <li class="hover:text-blue-400 p-1 border-b border-[#1efe7f50]"><a href="/dashboard/{{username}}/demote?={{index}}"><i class="fa-regular fa-circle-down text-red-400"></i> Priority</a></li>
-                                <li class="hover:text-blue-400 p-1"><a href="/dashboard/{{username}}/completed?={{index}}"><i class="fa-solid fa-check text-blue-600"></i> Mark completed</a></li>
+                                <li class="hover:text-blue-400 p-1"><a href="/dashboard/{{../username}}?edit={{index}}"><i class="fa-solid fa-pencil"></i> Edit</a></li>
+                                <li class="hover:text-blue-400 p-1 border-y border-[#1efe7f50]"><a href="/dashboard/{{../username}}?promote={{index}}"><i class="fa-regular fa-circle-up text-[#1EFE80]"></i> Priority</a></li>
+                                <li class="hover:text-blue-400 p-1 border-b border-[#1efe7f50]"><a href="/dashboard/{{../username}}?demote={{index}}"><i class="fa-regular fa-circle-down text-red-400"></i> Priority</a></li>
+                                <li class="hover:text-blue-400 p-1"><a href="/dashboard/{{../username}}?completed={{index}}"><i class="fa-solid fa-check text-blue-600"></i> Mark completed</a></li>
                             </ul>
                         </div>
                     </div>
                     {{/each}}
-                    <h1>I am {{username}}, nice to meet you</h1>
                 </div>
             </section>
         </main>
@@ -73,7 +72,6 @@
         function popupMenu(i){
             document.getElementById(`task-menu-${i}`).classList.toggle('hidden');
         }
-        const theUsername = `{{username}}`;
     </script>
 </body>
 </html>

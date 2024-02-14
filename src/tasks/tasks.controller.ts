@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Render,
   Res,
 } from '@nestjs/common';
@@ -15,7 +16,26 @@ export class TasksController {
 
   @Get('/dashboard/:username')
   @Render('dashboardPage')
-  getDashboardPage(@Param('username') username) {
+  getDashboardPage(
+    @Param('username') username,
+    @Query('promote') pTaskId,
+    @Query('demote') dTaskId,
+  ) {
+    if (pTaskId) {
+      const existingUser = this.tasksService.getUserbyUsername(username);
+      const realTaskId = existingUser.tasks.length - 1 - pTaskId;
+      this.tasksService.promoteTask(realTaskId, username);
+      console.log(
+        `Task number ${realTaskId + 1} has been promoted successfully.`,
+      );
+    } else if (dTaskId) {
+      const existingUser = this.tasksService.getUserbyUsername(username);
+      const realTaskId = existingUser.tasks.length - 1 - dTaskId;
+      this.tasksService.demoteTask(realTaskId, username);
+      console.log(
+        `Task number ${realTaskId + 1} has been demoted successfully.`,
+      );
+    }
     const user = this.tasksService.getUserbyUsername(username);
     return {
       currentTime: new Date().toLocaleString(),
