@@ -16,7 +16,7 @@ Before running the application, make sure you have the following prerequisites i
 1. Clone the repository:  
    Clone this repository to your local machine using the command: `git clone https://github.com/hmyunis/academic-planner-ssr.git`
 2. Navigate to the Project Directory:  
-   Open your terminal and navigate to the cloned directory using the cd command:
+   Open your terminal and navigate to the cloned directory using the `cd` command:
 3. Install Dependencies:  
    Run the following command to install the project dependencies: `npm install`
 4. Start the Application:  
