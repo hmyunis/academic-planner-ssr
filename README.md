@@ -1,5 +1,7 @@
 # Academic Planner Prototype
 
+### To Run the Application on Windows provided NPM is installed, simply open START_SERVER.bat and follow the instructions found there. Otherwise, follow the steps below.
+
 ## Prerequisites
 
 Before running the application, make sure you have the following prerequisites installed on your system:
@@ -9,7 +11,7 @@ Before running the application, make sure you have the following prerequisites i
 - [Nest.js](https://nestjs.com/): You can install Nest.js globally using the command:
   `npm install -g @nestjs/cli`
 
-- [Git](https://git-scm.com/downloads): Make sure to install Git on your machine.
+- [Git](https://git-scm.com/downloads): Make sure to install Git on your machine (for clonning the repository only).
 
 ## How to Run the Application
 
