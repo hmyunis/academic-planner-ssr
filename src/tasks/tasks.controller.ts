@@ -7,10 +7,13 @@ import {
   Query,
   Render,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller()
+@UseGuards(AuthGuard)
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
@@ -36,7 +39,7 @@ export class TasksController {
       console.log(
         `Task number ${realTaskId + 1} has been demoted successfully.`,
       );
-    } else if(cTaskId){
+    } else if (cTaskId) {
       const existingUser = this.tasksService.getUserbyUsername(username);
       const realTaskId = existingUser.tasks.length - 1 - dTaskId;
       this.tasksService.removeTask(realTaskId, username);

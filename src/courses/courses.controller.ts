@@ -6,10 +6,13 @@ import {
   Post,
   Render,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('courses')
+@UseGuards(AuthGuard)
 export class CoursesController {
   constructor(private coursesService: CoursesService) {}
 

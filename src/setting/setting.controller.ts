@@ -1,8 +1,18 @@
-import { Body, Controller, Get, Param, Post, Render } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Render,
+  UseGuards,
+} from '@nestjs/common';
 import * as fs from 'fs';
 import { SettingService } from './setting.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('setting')
+@UseGuards(AuthGuard)
 export class SettingController {
   constructor(private settingService: SettingService) {}
 

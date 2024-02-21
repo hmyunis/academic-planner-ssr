@@ -68,13 +68,15 @@
         </div>
       </aside>
       <main class='bg-[#272B34] w-5/6 min-h-screen p-10 relative'>
+        <a href="/signout">
+          <button
+            class='absolute top-5 right-5 border border-red-500 text-red-500 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-red-500 hover:text-black hover:scale-125 transition-all duration-500'
+          >
+            Log out
+          </button>
+        </a>
         <form method="post" action="/setting/{{username}}/save">
         <h1 class='text-[#1EFE80] text-5xl'>Setting</h1>
-        <button
-          class='absolute top-5 right-5 border border-red-500 text-red-500 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-red-500 hover:text-black hover:scale-125 transition-all duration-500'
-        >
-          <a href="/signin">Log out</a>
-        </button>
         <section
           class='bg-[#21242C] p-16 w-2/3 mx-auto my-10 rounded-xl flex flex-col gap-8'
         >

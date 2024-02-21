@@ -6,9 +6,12 @@ import {
   Post,
   Render,
   Res,
+  Session,
+  UseGuards,
 } from '@nestjs/common';
 import * as fs from 'fs';
 import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 
 @Controller()
 export class AuthController {
@@ -18,7 +21,7 @@ export class AuthController {
   getLoginPage() {}
 
   @Post('/signin')
-  signInUser(@Body() body, @Res() res) {
+  signInUser(@Body() body, @Res() res, @Session() session: any) {
     if (this.authService.usernameExists(body.username)) {
       res.render('dashboardPage', {
         currentTime: new Date().toLocaleString(),
@@ -27,6 +30,8 @@ export class AuthController {
           .length,
         arrayOfTasks: this.authService.getArrayOfTasks(body.username),
       });
+
+      session.username = body.username;
     } else {
       res.render('modals/signinFail', {
         imposter: body.username,
@@ -40,7 +45,7 @@ export class AuthController {
   getSignupPage() {}
 
   @Post('/signup')
-  signUpUser(@Body() body, @Res() res) {
+  signUpUser(@Body() body, @Res() res, @Session() session: any) {
     if (
       body.password !== body.confirmPassword ||
       this.authService.emailExists(body.email.trim()) ||
@@ -79,13 +84,24 @@ export class AuthController {
       readJson.push(wrappedUser);
       const jsonString = JSON.stringify(readJson, null, 2);
       fs.writeFileSync(process.env.FILE_PATH, jsonString);
+
+      session.username = body.username;
+
       res.render('moreProfileDetailsPage', {
         username: body.username,
       });
     }
   }
 
+  @Get('/signout')
+  @UseGuards(AuthGuard)
+  signOut(@Res() res, @Session() session: any) {
+    session.username = null;
+    return res.redirect('/signin');
+  }
+
   @Post('/customize/:username')
+  @UseGuards(AuthGuard)
   customizeUser(@Param('username') username, @Body() body, @Res() res) {
     const readUser = this.authService.getUserbyUsername(username);
     readUser.accountDetails.fullName = body.fullName;
