@@ -9,16 +9,16 @@
     <link rel='stylesheet' href='/css/newCourseInputField.css' />
     <script src='https://kit.fontawesome.com/fe3d3f96be.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   </head>
   <body>
     <div class='flex text-white'>
       <aside class='bg-[#21242C] w-1/6 min-h-screen flex flex-col'>
-        <div class='text-center py-5' id='avatar-box'>
-          <figure class='hover:translate-y-2 transition-all cursor-pointer'>
-            <a href=''><i class='fa-solid fa-circle-user text-6xl'></i></a>
-            <br />
-            <figcaption id='icon'></figcaption>
-          </figure>
+        <div data-tilt class="text-center py-5" id="avatar-box">
+            <figure class="hover:translate-y-2 transition-all cursor-pointer">
+                <a href=""><i class="fa-solid fa-circle-user text-6xl"></i></a>
+                <figcaption>{{username}}</figcaption>
+            </figure>
         </div>
         <nav>
           <ul class='flex flex-col text-2xl'>
@@ -156,6 +156,7 @@
         </div>
       </main>
     </div>
+    <script src="/scripts/vanilla-tilt.min.js"></script>
     <script>
       let coursesOnScreenCounter = 2;
       function addNewCourse() {
@@ -202,7 +203,7 @@
               totalECTS += getScoreAndEctsObj().ECTSArray[i];
           }
           const result = numerator / totalECTS;
-          return result.toFixed(2);
+          return parseFloat(result.toFixed(2));
       }
 
       function getDecimalGrade(scoreOutOfHundred) {
@@ -236,7 +237,15 @@
       function generateReport() {
           location.href = '#'; // scroll to top
           document.getElementById('result-board').classList.remove('hidden');
-          document.getElementById('gpa-result').innerHTML = getGPA();
+          if (getGPA()){
+            document.getElementById('gpa-result').innerHTML = `${getGPA()}`;
+            if (getGPA() >= 3.5){
+              confetti({
+                particleCount: 1000,
+                spread: 1280,
+              });
+            }
+          }
           let ctx = document.getElementById('myBarChart').getContext('2d');
           let myBarChart = new Chart(ctx, {
               type: 'bar',
