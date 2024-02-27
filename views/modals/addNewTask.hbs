@@ -135,6 +135,18 @@
             <section id="tasks">
                 <h1 class="text-4xl">Tasks</h1>
                 <h3>Today - <span class="text-[#1EFE80]" id="current-date">{{currentTime}}</span></h3>
+                <div id="task-empty-board" class="absolute hidden top-[60%] right-[30%]">
+                    <p class="text-5xl text-slate-500">📂 No tasks found.</p>
+                </div>
+                <div class="flex mx-auto w-fit gap-5">
+                    <p><i class="fa-solid fa-filter text-[#1EFE80]"></i> Filter tasks by:</p>
+                    <div id="filter-types-container" class="flex gap-5">
+                        <button class="rounded-3xl w-32 py-1 px-3 bg-indigo-400 text-black hover:font-semibold hover:bg-[#1EFE80] transition-all hover:scale-105 cursor-pointer" onclick="filter('all')">All</button>
+                        <button class="rounded-3xl w-32 py-1 px-3 bg-indigo-400 text-black hover:font-semibold hover:bg-[#1EFE80] transition-all hover:scale-105 cursor-pointer" onclick="filter('assignment')">Assignment</button>
+                        <button class="rounded-3xl w-32 py-1 px-3 bg-indigo-400 text-black hover:font-semibold hover:bg-[#1EFE80] transition-all hover:scale-105 cursor-pointer" onclick="filter('exam')">Exam</button>
+                        <button class="rounded-3xl w-32 py-1 px-3 bg-indigo-400 text-black hover:font-semibold hover:bg-[#1EFE80] transition-all hover:scale-105 cursor-pointer" onclick="filter('other')">Other</button>
+                    </div>
+                </div>
                 <div class="flex flex-wrap my-2" id="list-of-tasks">
                     {{#each arrayOfTasks as |item index|}}
                     <div id="task-item-{{index}}" class="relative bg-[#21242C] rounded-2xl p-3 w-2/5 flex m-2" title="{{this.courseCode}}">
@@ -163,5 +175,6 @@
             document.getElementById(`task-menu-${i}`).classList.toggle('hidden');
         }
     </script>
+    <script src="/scripts/sortTasks.js"></script>
 </body>
 </html>
